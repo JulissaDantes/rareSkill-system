@@ -19,7 +19,7 @@ contract Contract1 is Ownable2Step, ERC20("SanctionableToken", "STK") {
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal override {
-        require(!bannedAddresses[from] && !bannedAddresses[to], "Invalid caller");
+        require(!bannedAddresses[from] && !bannedAddresses[to], "Sanctioned account");
         super._beforeTokenTransfer(from, to, amount);
     }
 
