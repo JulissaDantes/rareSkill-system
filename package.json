@@ -1,0 +1,25 @@
+{
+  "name": "rareskill-system",
+  "version": "1.0.0",
+  "description": "I am currently enrolled in RareSkills bootcamp and this repo is for the projects I make while I'm at it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JulissaDantes/rareSkill-system.git"
+  },
+  "author": "Julissa Dantes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JulissaDantes/rareSkill-system/issues"
+  },
+  "homepage": "https://github.com/JulissaDantes/rareSkill-system#readme",
+  "devDependencies": {
+    "hardhat": "^2.17.1"
+  },
+  "dependencies": {
+    "prettier-plugin-solidity": "^1.1.3"
+  }
+}
