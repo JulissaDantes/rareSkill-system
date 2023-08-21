@@ -11,6 +11,10 @@ describe("Contract1", function () {
       [owner, banedUser] = await ethers.getSigners();
   
     });
+
+    it("Only owner can ban account", async () => {
+      expect(instance.connect(banedUser).banAccount(owner.address)).to.be.revertedWith('Ownable: caller is not the owner');
+    });
   
     it("Un-banned account can handle tokens", async () => {
         const supply = 10;
