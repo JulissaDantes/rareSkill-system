@@ -3,7 +3,7 @@ import { ethers } from "hardhat";
 import { Contract } from "ethers";
 import { mine, time } from "@nomicfoundation/hardhat-network-helpers";
 
-describe.only("Contract4", function () {
+describe("Contract4", function () {
   const initialSupply = 100;
     let owner, other;
     let instance, token1, token2: Contract;
@@ -46,6 +46,7 @@ describe.only("Contract4", function () {
     });
 
     it("Cannot withdraw already withdrawn amount", async () => {
-        
+      expect(instance.connect(other).withdraw(token1.getAddress())).to.be.revertedWith('No available funds');
+      expect(await token1.balanceOf(other.address)).to.be.eq(initialSupply);
     });
   });

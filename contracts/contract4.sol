@@ -12,27 +12,31 @@ import "hardhat/console.sol";
 contract Contract4 {
     using Checkpoints for Checkpoints.Trace224;
     // account address => (token address => amount in time)
-    mapping(address => mapping(address => Checkpoints.Trace224)) private usersFunds;
+    mapping(address => mapping(address => Checkpoints.Trace224)) private usersFundsInTime;
+    // account address => (token address => amount withdrawn)
+    mapping(address => mapping(address => uint224)) public withdrawn;
 
     function getTotalFundsByToken(address target, address token) external view returns(uint224) {
-        console.log(usersFunds[target][token].latest());
-        return usersFunds[target][token].latest();
+        return usersFundsInTime[target][token].latest();
     }
 
     function deposit(address target, uint224 amount, address token) external {
         // transfer token to the contract
         ERC20(token).transferFrom(msg.sender, address(this), amount);
         //update state
-        _push(usersFunds[target][token], _add, amount);
+        _push(usersFundsInTime[target][token], _add, amount);
     }
 
     function withdraw(address token) external {
         // The biggest timestamp that can fit a uint 32 is April 16, 2106, therefore this conversion wont cause problems
         uint32 time = uint32(block.timestamp - 3 days);
-        uint224 availableAmount = usersFunds[msg.sender][token].upperLookupRecent(time);
-        require(availableAmount > 0, "No available funds");
+        uint224 totalWithdrawn = withdrawn[msg.sender][token];
+        uint224 redimeableAmount = usersFundsInTime[msg.sender][token].upperLookupRecent(time);
+        require(redimeableAmount > 0 && redimeableAmount > totalWithdrawn, "No available funds");
+        uint224 availableAmount = redimeableAmount - totalWithdrawn;
         
-        _push(usersFunds[msg.sender][token], _subtract, availableAmount);
+        _push(usersFundsInTime[msg.sender][token], _subtract, availableAmount);
+        withdrawn[msg.sender][token] = totalWithdrawn + availableAmount;
         ERC20(token).transfer(msg.sender, availableAmount);
     }
 
