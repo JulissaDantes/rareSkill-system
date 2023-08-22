@@ -2,9 +2,11 @@
 pragma solidity ^0.8.11;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import {IERC1363Receiver} from "erc-payable-token/contracts/token/ERC1363/IERC1363Receiver.sol";
 import {BuyToken} from "./ERC1363.sol";
 import {SellToken} from "./ERC20.sol";
+import "hardhat/console.sol";
 
 /*
 * Token sale and buyback with bonding curve. The more tokens a user buys, the more expensive the token becomes. To keep things simple, use a 
@@ -17,7 +19,7 @@ import {SellToken} from "./ERC20.sol";
 * IMPORTANT: This contracts locks the ERC1363 tokens used to buy the ERC20, it should have a transfer mechanism to about locking the tokens in,
 * but the contract focus only on the token sale using the linear bonding curve to compute the price. I DO NOT RECOMMEND DEPLOYING TO PRODUCTION.
 */
-contract Contract3 is IERC1363Receiver {
+contract Contract3 is IERC1363Receiver, ReentrancyGuard {
     // linear bonding curve growth rate
     uint256 immutable slope;
     // initial token price
@@ -29,14 +31,30 @@ contract Contract3 is IERC1363Receiver {
     // TODO consider using safeToken to interact with the ERC20s
     // TODO add events
 
-    constructor(uint256 _slope, uint256 _initialPrice, address _tokenA, address _tokenB) {
+    constructor(uint256 _slope, uint256 _initialPrice, address _tokenB) {
         slope = _slope;
         initialPrice = _initialPrice;
-        tokenA = SellToken(_tokenA);//TODO maybe this should hold all the reserve and deploy an ERC20 
-                                // during runtime, but I dont think thats a good design, need to evaluate it
+        tokenA = new SellToken();
         tokenB = BuyToken(_tokenB);
     }
+
+    function getTokenAAddress() external view returns(address) {
+        return address(tokenA);
+    }
     
+    function sellTokens(uint256 amount) external nonReentrant {
+        require(tokenA.balanceOf(msg.sender) >= amount, "Invalid sell amount");
+        uint256 price = getPrice();
+        uint256 tokenBAmount = price * amount;
+
+        // If not enough players participate in the ecosystem, tokens to be paid might be higher than tokens 
+        // available, thefore the selling process has its limits.
+        require(tokenBAmount < tokenB.balanceOf(address(this)), "Sell amount is bigger than max sell limit");
+        
+        tokenB.transfer(msg.sender, tokenBAmount);
+        tokenA.burn(msg.sender, amount);
+    }
+
     // buy tokens
     function onTransferReceived(
         address,
@@ -56,20 +74,11 @@ contract Contract3 is IERC1363Receiver {
         return IERC1363Receiver.onTransferReceived.selector;
     }
 
-    function sellTokens(uint256 amount) external {
-        require(tokenA.balanceOf(msg.sender) >= amount, "Invalid sell amount");
-        uint256 price = getPrice();
-        uint256 tokenBAmount = price * amount;
-
-        tokenA.burn(msg.sender, amount);
-        tokenB.transfer(msg.sender, tokenBAmount);
-    }
-
     /*
     * Uses linear bonding curve formula to return the price, price = (slope * tokenSupply) + initialPrice.
     * 
     */
-    function getPrice() internal view returns(uint256) {
+    function getPrice() public view returns(uint256) {
         return (slope + tokenA.totalSupply()) + initialPrice;
     }
 
