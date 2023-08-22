@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { Contract } from "ethers";
 
-describe.only("Contract3", function () {
+describe("Contract3", function () {
     const initialSupply = 100;
     let owner, other;
     let instance: Contract;

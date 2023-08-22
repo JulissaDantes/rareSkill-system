@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JulissaDantes/rareSkill-system#readme",
   "devDependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
