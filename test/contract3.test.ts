@@ -1,13 +1,13 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { Contract } from "ethers";
+import { Contract3, SellToken, BuyToken } from "../typechain-types";
 
 describe("Contract3", function () {
     const initialSupply = 100;
     let owner, other;
-    let instance: Contract;
-    let tokenA: Contract;
-    let tokenB: Contract;
+    let instance: Contract3;
+    let tokenA: SellToken;
+    let tokenB: BuyToken;
     before(async () => {
       tokenB = await ethers.deployContract("BuyToken", ["BuyToken", "BTK"]);
       instance = await ethers.deployContract("Contract3", [1, 1, tokenB.getAddress()]);

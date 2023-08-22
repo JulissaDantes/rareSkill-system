@@ -1,10 +1,10 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { Contract } from "ethers";
+import { Contract2 } from "../typechain-types";
 
 describe("Contract2", function () {
     let owner, other1, other2;
-    let instance: Contract;
+    let instance: Contract2;
     const supply = 10;
     this.beforeEach(async () => {
         [owner, other1, other2] = await ethers.getSigners();
