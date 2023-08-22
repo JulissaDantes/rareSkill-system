@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.11;
+pragma solidity 0.8.11;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/utils/Checkpoints.sol";
 import "hardhat/console.sol";
 
 /*
-* Untrusted escrow. Create a contract where a buyer can put an *arbitrary* ERC20 token into a 
-* contract and a seller can withdraw it 3 days later. 
-*/
+ * Untrusted escrow. Create a contract where a buyer can put an *arbitrary* ERC20 token into a
+ * contract and a seller can withdraw it 3 days later.
+ */
 contract Contract4 {
     using Checkpoints for Checkpoints.Trace224;
     // account address => (token address => amount in time)
@@ -16,7 +16,7 @@ contract Contract4 {
     // account address => (token address => amount withdrawn)
     mapping(address => mapping(address => uint224)) public withdrawn;
 
-    function getTotalFundsByToken(address target, address token) external view returns(uint224) {
+    function getTotalFundsByToken(address target, address token) external view returns (uint224) {
         return usersFundsInTime[target][token].latest();
     }
 
@@ -34,7 +34,7 @@ contract Contract4 {
         uint224 redimeableAmount = usersFundsInTime[msg.sender][token].upperLookupRecent(time);
         require(redimeableAmount > 0 && redimeableAmount > totalWithdrawn, "No available funds");
         uint224 availableAmount = redimeableAmount - totalWithdrawn;
-        
+
         _push(usersFundsInTime[msg.sender][token], _subtract, availableAmount);
         withdrawn[msg.sender][token] = totalWithdrawn + availableAmount;
         ERC20(token).transfer(msg.sender, availableAmount);
