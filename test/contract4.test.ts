@@ -42,6 +42,7 @@ describe.only("Contract4", function () {
       await mine();
 
       await instance.connect(other).withdraw(token1.getAddress());
+      expect(await token1.balanceOf(other.address)).to.be.eq(initialSupply);
     });
 
     it("Cannot withdraw already withdrawn amount", async () => {
