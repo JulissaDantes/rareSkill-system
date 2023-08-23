@@ -14,8 +14,9 @@ describe("Contract2", function () {
     });
   
     it("God account can transfer between 2 accounts without allowance", async () => {
-
-        await instance.customTransfer(other1, other2, supply);
+        await expect(instance.customTransfer(other1, other2, supply))
+        .to.emit(instance, 'CustomTransfer')
+        .withArgs(other1.address, other2.address, supply);
         
         expect(await instance.balanceOf(other2)).to.be.eq(supply);
         expect(await instance.balanceOf(other1)).to.be.eq(0);

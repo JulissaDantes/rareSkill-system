@@ -10,10 +10,14 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract Contract1 is Ownable2Step, ERC20("SanctionableToken", "STK") {
     mapping(address => bool) bannedAddresses;
 
+    event BanAccount(address indexed);
+
     /// @notice ban specific account ERC20 tokens
     /// @param account The account to be banned
     function banAccount(address account) external onlyOwner {
+        require(!bannedAddresses[account], "Account already banned");
         bannedAddresses[account] = true;
+        emit BanAccount(account);
     }
 
     function mint(address to, uint256 amount) external {

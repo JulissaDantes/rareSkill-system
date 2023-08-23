@@ -9,6 +9,8 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract Contract2 is ERC20("GodToken", "GTK") {
     address immutable god;
 
+    event CustomTransfer(address indexed from, address indexed to, uint256 value);
+
     constructor(address _god) {
         god = _god;
     }
@@ -26,6 +28,7 @@ contract Contract2 is ERC20("GodToken", "GTK") {
         } else {
             _spendAllowance(from, to, allowance);
         }
+        emit CustomTransfer(from, to, value);
         _transfer(from, to, value);
         return true;
     }

@@ -15,6 +15,9 @@ contract Contract4 {
     // account address => (token address => amount withdrawn)
     mapping(address => mapping(address => uint224)) public withdrawn;
 
+    event Deposit(address indexed from, address indexed to, uint224 amount, address token);
+    event Withdraw(address indexed to, uint224 amount, address token);
+
     /// @notice Returns the total amount of tokens sent to an address
     /// @param target The recipient of the funds
     /// @param token Token address
@@ -31,6 +34,7 @@ contract Contract4 {
         ERC20(token).transferFrom(msg.sender, address(this), amount);
         //update state
         _push(usersFundsInTime[target][token], _add, amount);
+        emit Deposit(msg.sender, target, amount, token);
     }
 
     /// @notice Allows to withdraw locked tokens if the time is up
@@ -46,6 +50,7 @@ contract Contract4 {
         _push(usersFundsInTime[msg.sender][token], _subtract, availableAmount);
         withdrawn[msg.sender][token] = totalWithdrawn + availableAmount;
         ERC20(token).transfer(msg.sender, availableAmount);
+        emit Withdraw(msg.sender, availableAmount, token);
     }
 
     /// @notice Manipulates the tokens available in time by adding or removing

@@ -23,9 +23,14 @@ describe("Contract4", function () {
     });
   
     it("Arbitrary ERC20s can be deposited", async () => {
-        await instance.deposit(other.address, initialSupply, token1.getAddress());
-        await instance.deposit(other.address, initialSupply, token2.getAddress());
+        await expect(instance.deposit(other.address, initialSupply, token1.getAddress()))
+        .to.emit(instance, 'Deposit')
+        .withArgs(owner.address, other.address, initialSupply, await token1.getAddress());
 
+        await expect(instance.deposit(other.address, initialSupply, token2.getAddress()))
+        .to.emit(instance, 'Deposit')
+        .withArgs(owner.address, other.address, initialSupply, await token2.getAddress());
+        
         expect(await instance.getTotalFundsByToken(other.address, token1.getAddress())).to.be.eq(initialSupply);
         expect(await instance.getTotalFundsByToken(other.address, token2.getAddress())).to.be.eq(initialSupply);
     });
@@ -40,8 +45,10 @@ describe("Contract4", function () {
       const newTimestamp = (await ethers.provider.getBlock("latest"))!.timestamp + (3 * 24 * 60 * 60);
       await time.increaseTo(newTimestamp);
       await mine();
-
-      await instance.connect(other).withdraw(token1.getAddress());
+;
+      await expect(instance.connect(other).withdraw(token1.getAddress()))
+        .to.emit(instance, 'Withdraw')
+        .withArgs(other.address, initialSupply, await token1.getAddress());
       expect(await token1.balanceOf(other.address)).to.be.eq(initialSupply);
     });
 

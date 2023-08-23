@@ -31,9 +31,10 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
     // Token to buy tokenA with
     BuyToken tokenB;
 
-    // TODO consider using safeToken to interact with the ERC20s
-    // TODO add events
+    event SellTokens(address indexed seller, uint256 amount, uint256 price);
+    event BuyTokens(address indexed buyer, uint256 amount, uint256 price);
 
+    // TODO consider using safeToken to interact with the ERC20s
     constructor(uint256 _slope, uint256 _initialPrice, address _tokenB) {
         slope = _slope;
         initialPrice = _initialPrice;
@@ -58,6 +59,8 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
 
         tokenB.transfer(msg.sender, tokenBAmount);
         tokenA.burn(msg.sender, amount);
+
+        emit SellTokens(msg.sender, tokenBAmount, price);
     }
 
     /// @notice Allows accounts to buy tokens A with tokens B.
@@ -77,6 +80,8 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
         if (amount != tokenAmount * price) {
             tokenB.transfer(sender, amount - (tokenAmount * price));
         }
+
+        emit BuyTokens(sender, tokenAmount, price);
         return IERC1363Receiver.onTransferReceived.selector;
     }
 

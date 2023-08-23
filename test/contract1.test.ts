@@ -39,8 +39,10 @@ describe("Contract1", function () {
         await instance.mint(banedUser.address, supply);
         await instance.mint(owner.address, supply);
         
-        await instance.banAccount(banedUser.address);
-    
+        await expect(instance.banAccount(banedUser.address))
+        .to.emit(instance, 'BanAccount')
+        .withArgs(banedUser.address);
+        
         // Cannot transfer
         const beforeBalance = await instance.balanceOf(banedUser.address);
         expect(instance.connect(banedUser).transfer(owner.address, supply)).to.be.revertedWith('Sanctioned account');
@@ -53,5 +55,10 @@ describe("Contract1", function () {
         // Cannot receive
         expect(instance.transfer(banedUser.address, supply)).to.be.revertedWith('Sanctioned account');
         expect(await instance.balanceOf(banedUser.address)).to.be.eq(beforeBalance);
+    });
+
+
+    it("Account can only be banned once", async () => {
+      expect(instance.banAccount(banedUser.address)).to.be.revertedWith('Account already banned');
     });
   });
