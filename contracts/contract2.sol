@@ -3,11 +3,11 @@ pragma solidity 0.8.11;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-/*
- * Token with god mode. A special address is able to transfer tokens between addresses at will.
- */
+/// @title Token with god mode
+/// @author Julissa Dantes
+/// @notice A special address is able to transfer tokens between addresses at will.
 contract Contract2 is ERC20("GodToken", "GTK") {
-    address god;
+    address immutable god;
 
     constructor(address _god) {
         god = _god;
@@ -17,6 +17,7 @@ contract Contract2 is ERC20("GodToken", "GTK") {
         _mint(to, amount);
     }
 
+    /// @notice Behaves just like transferFrom but bypasses the from check. Only god account can perform this transfer.
     function customTransfer(address from, address to, uint256 value) external returns (bool) {
         require(msg.sender == god);
         uint256 allowance = allowance(from, to);
