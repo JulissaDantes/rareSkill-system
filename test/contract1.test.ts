@@ -13,7 +13,7 @@ describe("Contract1", function () {
     });
 
     it("Only owner can ban account", async () => {
-      expect(instance.connect(banedUser).banAccount(owner.address)).to.be.revertedWith('Ownable: caller is not the owner');
+      await expect(instance.connect(banedUser).banAccount(owner.address)).to.be.revertedWith('Ownable: caller is not the owner');
     });
   
     it("Un-banned account can handle tokens", async () => {
@@ -45,20 +45,20 @@ describe("Contract1", function () {
         
         // Cannot transfer
         const beforeBalance = await instance.balanceOf(banedUser.address);
-        expect(instance.connect(banedUser).transfer(owner.address, supply)).to.be.revertedWith('Sanctioned account');
+        await expect(instance.connect(banedUser).transfer(owner.address, supply)).to.be.revertedWith('Sanctioned account');
         expect(await instance.balanceOf(banedUser.address)).to.be.eq(beforeBalance);
         
         // Cannot mint or be the recipient of minting
-        expect(instance.mint(banedUser.address, supply)).to.be.revertedWith('Sanctioned account');
-        expect(instance.connect(owner).mint(banedUser.address, supply)).to.be.revertedWith('Sanctioned account');
+        await expect(instance.mint(banedUser.address, supply)).to.be.revertedWith('Sanctioned account');
+        await expect(instance.connect(owner).mint(banedUser.address, supply)).to.be.revertedWith('Sanctioned account');
         
         // Cannot receive
-        expect(instance.transfer(banedUser.address, supply)).to.be.revertedWith('Sanctioned account');
+        await expect(instance.transfer(banedUser.address, supply)).to.be.revertedWith('Sanctioned account');
         expect(await instance.balanceOf(banedUser.address)).to.be.eq(beforeBalance);
     });
 
 
     it("Account can only be banned once", async () => {
-      expect(instance.banAccount(banedUser.address)).to.be.revertedWith('Account already banned');
+      await expect(instance.banAccount(banedUser.address)).to.be.revertedWith('Account already banned');
     });
   });

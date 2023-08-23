@@ -1,7 +1,14 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { Contract3, SellToken, BuyToken } from "../typechain-types";
+import { mine, time } from "@nomicfoundation/hardhat-network-helpers";
 import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
+
+async function mineCoolDown() {
+  const dayInSeconds = 24 * 60 * 60;
+  await time.increaseTo((await ethers.provider.getBlock("latest"))!.timestamp + dayInSeconds);
+  await mine();
+}
 
 describe("Contract3", function () {
     const initialSupply = 100;
@@ -43,5 +50,41 @@ describe("Contract3", function () {
       expect(balanceBefore).to.be.gt(await tokenA.balanceOf(other.address));
       expect(priceBefore).to.be.gt(await instance.getPrice());
     });
-    //TODO test for reverts and negative scenarios
+    
+    it("Account need to wait for cooldown period", async () => {
+      const balanceB = await tokenB.balanceOf(other);
+      const balanceBefore = await tokenA.balanceOf(other.address);
+  
+      await expect(tokenB.connect(other).transferAndCall(await instance.getAddress(), balanceB)).to.be.revertedWith('Please wait until the cooldown period expires');
+
+      await mineCoolDown();
+
+      await tokenB.connect(other).transferAndCall(await instance.getAddress(), balanceB);
+
+      expect(balanceBefore).to.be.lt(await tokenA.balanceOf(other.address));
+    });
+
+    it("Transaction reverts if minimum to buy is less than 1", async () => {
+      await mineCoolDown();
+      tokenB.mint(other.address, initialSupply);
+      const price = await instance.getPrice();
+      const amountToBuy = price - BigInt(1);
+      
+      await expect(tokenB.connect(other).transferAndCall(await instance.getAddress(), amountToBuy)).to.be.revertedWith('Not enough tokens to buy');
+    });
+
+    it("Token B is returned if not used", async () => {
+      const price = await instance.getPrice();
+      const amountToBuy = price + (price/BigInt(2));// 1.5 price, not enough for 2 tokens
+      const tokenAmount = amountToBuy / price;
+      const prevABalance = await tokenA.balanceOf(other.address);
+      const prevBBalance = await tokenB.balanceOf(other.address);
+
+      await expect(tokenB.connect(other).transferAndCall(await instance.getAddress(), amountToBuy))
+        .to.emit(instance, 'BuyTokens')
+        .withArgs(other.address, tokenAmount, price);
+      
+      expect(await tokenA.balanceOf(other.address)).to.be.eq(prevABalance + tokenAmount);
+      expect(await tokenB.balanceOf(other.address)).to.be.eq(prevBBalance - (tokenAmount * price));
+    });
   });

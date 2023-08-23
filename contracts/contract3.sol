@@ -8,11 +8,6 @@ import {BuyToken} from "./ERC1363.sol";
 import {SellToken} from "./ERC20.sol";
 import "hardhat/console.sol";
 
-/*
- *   TODO:  Consider the case someone might [sandwhich attack](https://medium.com/coinmonks/defi-sandwich-attack-explain-776f6f43b2fd) a
- *   bonding curve. What can you do about it?
- * IMPORTANT:
- */
 /// @title Token sale and buyback with bonding curve
 /// @author Julissa Dantes
 /// @notice The more tokens a user buys, the more expensive the token becomes. To keep things simple, use a linear bonding curve. When a person
@@ -31,10 +26,14 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
     // Token to buy tokenA with
     BuyToken tokenB;
 
+    // To prevent sandwich attacks there will be a cooldown after buy and sell
+    uint256 constant COOLDOWN_TIME = 1 days;
+    // The accounts on cooldown will be here
+    mapping(address => uint32) private _cooldownAccounts;
+
     event SellTokens(address indexed seller, uint256 amount, uint256 price);
     event BuyTokens(address indexed buyer, uint256 amount, uint256 price);
 
-    // TODO consider using safeToken to interact with the ERC20s
     constructor(uint256 _slope, uint256 _initialPrice, address _tokenB) {
         slope = _slope;
         initialPrice = _initialPrice;
@@ -46,9 +45,13 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
         return address(tokenA);
     }
 
-    /// @notice Allows accounts to sell their tokens A for tokens B.
+    /// @notice Allows accounts to sell their tokens A for tokens B. Account needs to cooldown before buying again
     /// @param amount The amount of tokens to sell
     function sellTokens(uint256 amount) external nonReentrant {
+        require(
+            _cooldownAccounts[msg.sender] <= uint32(block.timestamp),
+            "Please wait until the cooldown period expires"
+        );
         require(tokenA.balanceOf(msg.sender) >= amount, "Invalid sell amount");
         uint256 price = getPrice();
         uint256 tokenBAmount = price * amount;
@@ -57,9 +60,9 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
         // available, thefore the selling process has its limits.
         require(tokenBAmount < tokenB.balanceOf(address(this)), "Sell amount is bigger than max sell limit");
 
-        tokenB.transfer(msg.sender, tokenBAmount);
+        require(tokenB.transfer(msg.sender, tokenBAmount), "Transfer failed");
         tokenA.burn(msg.sender, amount);
-
+        _cooldownAccounts[msg.sender] = uint32(block.timestamp + COOLDOWN_TIME);
         emit SellTokens(msg.sender, tokenBAmount, price);
     }
 
@@ -71,6 +74,10 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
         uint256 amount,
         bytes memory
     ) public override returns (bytes4) {
+        require(
+            _cooldownAccounts[msg.sender] <= uint32(block.timestamp),
+            "Please wait until the cooldown period expires"
+        );
         uint256 price = getPrice();
         uint256 tokenAmount = amount / price;
         require(tokenAmount > 0, "Not enough tokens to buy");
@@ -78,9 +85,10 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
 
         // If payment was not exact returns unused amount
         if (amount != tokenAmount * price) {
-            tokenB.transfer(sender, amount - (tokenAmount * price));
+            require(tokenB.transfer(sender, amount - (tokenAmount * price)), "Transfer failed");
         }
 
+        _cooldownAccounts[msg.sender] = uint32(block.timestamp + COOLDOWN_TIME);
         emit BuyTokens(sender, tokenAmount, price);
         return IERC1363Receiver.onTransferReceived.selector;
     }

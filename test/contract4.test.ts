@@ -36,8 +36,8 @@ describe("Contract4", function () {
     });
 
     it("Withdraw cannot be made before the 3 day period", async () => {
-        expect(instance.connect(other).withdraw(token1.getAddress())).to.be.revertedWith('No available funds');
-        expect(instance.connect(other).withdraw(token2.getAddress())).to.be.revertedWith('No available funds');
+        await expect(instance.connect(other).withdraw(token1.getAddress())).to.be.revertedWith('No available funds');
+        await expect(instance.connect(other).withdraw(token2.getAddress())).to.be.revertedWith('No available funds');
     });
 
     it("Withdraw can be done after 3 days", async () => {
@@ -53,7 +53,7 @@ describe("Contract4", function () {
     });
 
     it("Cannot withdraw already withdrawn amount", async () => {
-      expect(instance.connect(other).withdraw(token1.getAddress())).to.be.revertedWith('No available funds');
+      await expect(instance.connect(other).withdraw(token1.getAddress())).to.be.revertedWith('No available funds');
       expect(await token1.balanceOf(other.address)).to.be.eq(initialSupply);
     });
   });

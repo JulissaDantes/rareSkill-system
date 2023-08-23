@@ -31,7 +31,7 @@ contract Contract4 {
     /// @param token Token address
     function deposit(address target, uint224 amount, address token) external {
         // transfer token to the contract
-        ERC20(token).transferFrom(msg.sender, address(this), amount);
+        require(ERC20(token).transferFrom(msg.sender, address(this), amount), "Transfer failed");
         //update state
         _push(usersFundsInTime[target][token], _add, amount);
         emit Deposit(msg.sender, target, amount, token);
@@ -49,7 +49,7 @@ contract Contract4 {
 
         _push(usersFundsInTime[msg.sender][token], _subtract, availableAmount);
         withdrawn[msg.sender][token] = totalWithdrawn + availableAmount;
-        ERC20(token).transfer(msg.sender, availableAmount);
+        require(ERC20(token).transfer(msg.sender, availableAmount), "Transfer failed");
         emit Withdraw(msg.sender, availableAmount, token);
     }
 
