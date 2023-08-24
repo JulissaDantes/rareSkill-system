@@ -39,6 +39,10 @@ describe("Contract3", function () {
       expect(priceBefore).to.be.lt(await instance.getPrice());
     });
 
+    it("Account cannot call directly to buy tokens", async () => {
+      await expect(instance.connect(other).onTransferReceived(owner.address, other.address, initialSupply, "0x")).to.be.revertedWith('Only transfers can trigger this function');
+    });
+
     it("Account can sell token and price decreases after sell", async () => {
       const priceBefore = await instance.getPrice();
       const balanceBefore = await tokenA.balanceOf(other.address);

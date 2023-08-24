@@ -74,6 +74,7 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
         uint256 amount,
         bytes memory
     ) public override returns (bytes4) {
+        require(msg.sender == address(tokenB), "Only transfers can trigger this function");
         require(
             _cooldownAccounts[msg.sender] <= uint32(block.timestamp),
             "Please wait until the cooldown period expires"
