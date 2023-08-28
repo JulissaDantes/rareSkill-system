@@ -12,7 +12,7 @@ contract Contract1 is Ownable2Step, ERC20("SanctionableToken", "STK") {
 
     event BanAccount(address indexed);
 
-    /// @notice ban specific account ERC20 tokens
+    /// @notice ban specific account ERC20 tokens. Once an account its banned it cannot be un-banned.
     /// @param account The account to be banned
     function banAccount(address account) external onlyOwner {
         require(!bannedAddresses[account], "Account already banned");
