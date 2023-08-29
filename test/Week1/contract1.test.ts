@@ -45,15 +45,15 @@ describe("Contract1", function () {
         
         // Cannot transfer
         const beforeBalance = await instance.balanceOf(banedUser.address);
-        await expect(instance.connect(banedUser).transfer(owner.address, supply)).to.be.revertedWith('Sanctioned account');
+        await expect(instance.connect(banedUser).transfer(owner.address, supply)).to.be.revertedWith('From is a sanctioned account');
         expect(await instance.balanceOf(banedUser.address)).to.be.eq(beforeBalance);
         
         // Cannot mint or be the recipient of minting
-        await expect(instance.mint(banedUser.address, supply)).to.be.revertedWith('Sanctioned account');
-        await expect(instance.connect(owner).mint(banedUser.address, supply)).to.be.revertedWith('Sanctioned account');
+        await expect(instance.mint(banedUser.address, supply)).to.be.revertedWith('To is a sanctioned account');
+        await expect(instance.connect(owner).mint(banedUser.address, supply)).to.be.revertedWith('To is a sanctioned account');
         
         // Cannot receive
-        await expect(instance.transfer(banedUser.address, supply)).to.be.revertedWith('Sanctioned account');
+        await expect(instance.transfer(banedUser.address, supply)).to.be.revertedWith('To is a sanctioned account');
         expect(await instance.balanceOf(banedUser.address)).to.be.eq(beforeBalance);
     });
 

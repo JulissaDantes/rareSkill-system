@@ -18,13 +18,13 @@ import "hardhat/console.sol";
 /// but the contract focus only on the token sale using the linear bonding curve to compute the price. I DO NOT RECOMMEND DEPLOYING TO PRODUCTION.
 contract Contract3 is IERC1363Receiver, ReentrancyGuard {
     // linear bonding curve growth rate
-    uint256 immutable slope;
+    uint256 public immutable slope;
     // initial token price
-    uint256 immutable initialPrice;
+    uint256 public immutable initialPrice;
     // Token for sale
-    SellToken tokenA;
+    SellToken public tokenA;
     // Token to buy tokenA with
-    BuyToken tokenB;
+    BuyToken public tokenB;
 
     // To prevent sandwich attacks there will be a cooldown after buy and sell
     uint256 constant COOLDOWN_TIME = 1 days;
@@ -75,10 +75,7 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
         bytes memory
     ) public override returns (bytes4) {
         require(msg.sender == address(tokenB), "Only transfers can trigger this function");
-        require(
-            _cooldownAccounts[msg.sender] <= uint32(block.timestamp),
-            "Please wait until the cooldown period expires"
-        );
+        require(_cooldownAccounts[sender] <= uint32(block.timestamp), "Please wait until the cooldown period expires");
         uint256 price = getPrice();
         uint256 tokenAmount = amount / price;
         require(tokenAmount > 0, "Not enough tokens to buy");

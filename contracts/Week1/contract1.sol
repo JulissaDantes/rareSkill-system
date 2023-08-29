@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 /// @author Julissa Dantes
 /// @notice A fungible token that allows an admin to ban specified addresses from sending and receiving tokens.
 contract Contract1 is Ownable2Step, ERC20("SanctionableToken", "STK") {
-    mapping(address => bool) bannedAddresses;
+    mapping(address => bool) internal bannedAddresses;
 
     event BanAccount(address indexed);
 
@@ -26,7 +26,8 @@ contract Contract1 is Ownable2Step, ERC20("SanctionableToken", "STK") {
 
     /// @notice Override of before token transfer hook to include check for anned accounts
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal override {
-        require(!bannedAddresses[from] && !bannedAddresses[to], "Sanctioned account");
+        require(!bannedAddresses[from], "From is a sanctioned account");
+        require(!bannedAddresses[to], "To is a sanctioned account");
         super._beforeTokenTransfer(from, to, amount);
     }
 }

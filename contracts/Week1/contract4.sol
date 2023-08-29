@@ -41,7 +41,10 @@ contract Contract4 {
     /// @param token Token address of tokens to withdraw
     function withdraw(address token) external {
         // The biggest timestamp that can fit a uint 32 is April 16, 2106, therefore this conversion wont cause problems
-        uint32 time = uint32(block.timestamp - 3 days);
+        uint32 time;
+        unchecked {
+            time = uint32(block.timestamp - 3 days);
+        }
         uint224 totalWithdrawn = withdrawn[msg.sender][token];
         uint224 redimeableAmount = usersFundsInTime[msg.sender][token].upperLookupRecent(time);
         require(redimeableAmount > 0 && redimeableAmount > totalWithdrawn, "No available funds");
