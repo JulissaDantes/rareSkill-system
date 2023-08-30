@@ -1,5 +1,5 @@
-###How does ERC721A save gas?
+### How does ERC721A save gas?
 
-###Where does it add cost?
+### Where does it add cost?
 
-###Why shouldn’t ERC721A enumerable’s implementation be used on-chain?
+### Why shouldn’t ERC721A enumerable’s implementation be used on-chain?

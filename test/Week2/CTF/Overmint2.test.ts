@@ -2,6 +2,7 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
+import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
 describe("Overmint2", function () {
     async function setup() {
@@ -21,7 +22,8 @@ describe("Overmint2", function () {
 
         it("conduct your attack here", async function () {
             const AttackerFactory = await ethers.getContractFactory("Overmint2Attacker");
-            const attackerContract = await AttackerFactory.connect(attackerWallet).deploy(victimContract.address);
+            const attackerContract = await AttackerFactory.deploy(await victimContract.getAddress());
+            await attackerContract.connect(attackerWallet).attack();
         });
 
         after(async function () {

@@ -1,9 +1,8 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { loadFixture, time } from "@nomicfoundation/hardhat-network-helpers";
-import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
+import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
-describe.only("Overmint1", function () {
+describe("Overmint1", function () {
     async function setup() {
         const [owner, attackerWallet] = await ethers.getSigners();
 
