@@ -1,1 +1,2 @@
 ### Revisit the solidity events tutorial. How can OpenSea quickly determine which NFTs an address owns if most NFTs don’t use ERC721 enumerable? Explain how you would accomplish this if you were creating an NFT marketplace
+They probably has a listener on all NFT contracts being sold on their platforms, and save the information every time an event is emitted. If I were creating an NFT marketplace I'd probably do the same to get the data and save it off chain to make it cheaper for the business.
