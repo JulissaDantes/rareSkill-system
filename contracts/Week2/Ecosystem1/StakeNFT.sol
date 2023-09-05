@@ -4,6 +4,7 @@ pragma solidity 0.8.11;
 import {SellERC} from "contracts/Week2/Ecosystem1/ERC20.sol";
 import {NFT} from "contracts/Week2/Ecosystem1/NFT.sol";
 import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import "hardhat/console.sol";
 
 /*
 * 
@@ -39,7 +40,7 @@ contract StakeNFT is IERC721Receiver {
     }
 
     function withdrawTokens() external {
-        require(lastWithdraw[msg.sender] + withdrawalInterval >= block.timestamp);
+        require(lastWithdraw[msg.sender] + withdrawalInterval <= block.timestamp, "Wait 24 hours");
         lastWithdraw[msg.sender] = block.timestamp;
         token.mint(msg.sender, 10);
     }
@@ -49,6 +50,6 @@ contract StakeNFT is IERC721Receiver {
         hasStake[msg.sender] = false;
         delete lastWithdraw[msg.sender];
         delete originalOwner[tokenId];
-        nft.safeTransferFrom(address(0), msg.sender, tokenId);
+        nft.safeTransferFrom(address(this), msg.sender, tokenId);
     }
 }
