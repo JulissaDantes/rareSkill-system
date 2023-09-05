@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.11;
 
-import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
-import {SellToken} from "contracts/Week2/Ecosystem1/ERC20.sol";
+import {SellERC} from "contracts/Week2/Ecosystem1/ERC20.sol";
 import {NFT} from "contracts/Week2/Ecosystem1/NFT.sol";
 import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
@@ -13,12 +12,9 @@ import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Recei
     The user can withdraw the NFT at any time. The smart contract must take possession of the NFT and only the user should be able to withdraw 
     it. 
     
-    **IMPORTANT**: your staking mechanism must follow the sequence in the video I recorded above (stake NFTs with safetransfer).
-    - [ ] Make the funds from the NFT sale in the contract withdrawable by the owner. Use Ownable2Step. Remember to override the renounce to 
-    avoid tokens getting lost
 */
-abstract contract StakeNFT is Ownable2Step, IERC721Receiver {
-    SellToken public token;
+contract StakeNFT is IERC721Receiver {
+    SellERC public token;
     NFT public nft;
     mapping(uint256 => address) public originalOwner;
     mapping(address => uint256) public lastWithdraw;
@@ -26,21 +22,20 @@ abstract contract StakeNFT is Ownable2Step, IERC721Receiver {
     uint256 public constant withdrawalInterval = 1 days;
 
     constructor(address _nft) {
-        token = new SellToken();
+        token = new SellERC();
         nft = NFT(_nft);
     }
 
-    function onERC721Received(
-        address,
-        address from,
-        uint256 tokenId,
-        bytes memory
-    ) public returns (bytes4) {
+    function onERC721Received(address, address from, uint256 tokenId, bytes memory) public returns (bytes4) {
         require(msg.sender == address(nft), "Invalid NFT address");
         originalOwner[tokenId] = from;
         lastWithdraw[from] = block.timestamp;
         hasStake[from] = true;
         return 0x150b7a02;
+    }
+
+    function getTokenAddress() external view returns (address) {
+        return address(token);
     }
 
     function withdrawTokens() external {
@@ -55,9 +50,5 @@ abstract contract StakeNFT is Ownable2Step, IERC721Receiver {
         delete lastWithdraw[msg.sender];
         delete originalOwner[tokenId];
         nft.safeTransferFrom(address(0), msg.sender, tokenId);
-    }
-
-    function withdraw() external onlyOwner {
-        
     }
 }
