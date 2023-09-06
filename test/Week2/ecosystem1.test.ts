@@ -6,7 +6,7 @@ import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { Contract } from "hardhat/internal/hardhat-network/stack-traces/model";
 import { getNameOfDeclaration } from "typescript";
 
-describe.only("Ecosystem 1", function () {
+describe("Ecosystem 1", function () {
     let owner, other1, other2, royaltyReceiver, lastTokenID, tree, index = 0, price = ethers.parseEther("100.0");
     let instance: Contract;
     let erc20: Contract;

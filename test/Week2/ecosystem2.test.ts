@@ -1,26 +1,26 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { mine, time } from "@nomicfoundation/hardhat-network-helpers";
-import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 
-describe("", function () {
-    const initialSupply = 100;
-    let owner, other;
-    let instance: Contract3;
-    let tokenA: SellToken;
-    let tokenB: BuyToken;
+describe.only("Ecosystem 2", function () {
+    let owner;
+    let instance: Game;
+    let token: MyEnumerableToken
     before(async () => {
-      tokenB = await ethers.deployContract("BuyToken", ["BuyToken", "BTK"]);
-      instance = await ethers.deployContract("Contract3", [1, 1, tokenB.getAddress()]);
-      const TokenAContract = await ethers.getContractFactory("SellToken");
-      tokenA = TokenAContract.attach(await instance.getTokenAAddress());
+      token = await ethers.deployContract("MyEnumerableToken");
+      instance = await ethers.deployContract("Game", [await token.getAddress()]);
       
-      [owner, other] = await ethers.getSigners();
-
-      tokenB.mint(other.address, initialSupply);
+      [owner] = await ethers.getSigners();
+      for(let i = 0; i <= 20; i++) {
+        await token.mint(owner.address);
+      }
     });
   
-    it("", async () => {
-     
+    it("Can count prime tokenIds", async () => {
+      // There are 8 prime numbers from 1 to 20
+      expect(await instance.getBalance(owner.address)).to.be.eq(8);
+    });
+
+    it("Max supply is 20", async () => {
+      await expect(token.mint(owner.address)).to.be.revertedWith('Max supply reached already');
     });
 });
