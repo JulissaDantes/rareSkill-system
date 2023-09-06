@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
-describe.only("Ecosystem 2", function () {
+describe("Ecosystem 2", function () {
     let owner;
     let instance: Game;
     let token: MyEnumerableToken
