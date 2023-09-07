@@ -31,14 +31,14 @@ contract NFT is ERC721Royalty, Ownable2Step {
     }
 
     // the discount is that it only pays the royalty price
-    function mint(address to, uint256 amount, bytes32[] calldata proof, uint256 index) external payable {
+    function mint(address to, uint256 amount, bytes32[] calldata proof, uint256 secret) external payable {
         require(totalSupply < maxSupply, "Max supply reached already");
-        //TODO check if i need index at all here or if i can use the merkle with some signature or something
+
         bool discount = false;
         // Check if discount applies
-        if (verify(proof, msg.sender, index)) {
+        if (verify(proof, msg.sender, secret)) {
             discount = true;
-            _claimedAddresses.setTo(index, true);
+            _claimedAddresses.setTo(secret, true);
         }
 
         // Check sent amount
@@ -52,8 +52,8 @@ contract NFT is ERC721Royalty, Ownable2Step {
     }
 
     /// just public for testing purposes
-    function verify(bytes32[] calldata proof, address sender, uint256 index) public view returns (bool ret) {
-        bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(sender, index))));
+    function verify(bytes32[] calldata proof, address sender, uint256 secret) public view returns (bool ret) {
+        bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(sender, secret))));
         return MerkleProof.verify(proof, merkleRoot, leaf);
     }
 }

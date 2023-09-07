@@ -11,7 +11,6 @@ contract MyEnumerableToken is ERC721, ERC721Enumerable {
 
     function mint(address to) external payable {
         require(totalSupply() <= maxSupply, "Max supply reached already");
-        // TODO handle when some token gets burned, in that case this minting id doesnt work
         _mint(to, totalSupply() + 1);
     }
 

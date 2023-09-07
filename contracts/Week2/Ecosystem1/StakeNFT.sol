@@ -22,6 +22,10 @@ contract StakeNFT is IERC721Receiver {
     mapping(address => bool) public hasStake;
     uint256 public constant withdrawalInterval = 1 days;
 
+    event Deposit(address indexed from, uint256 tokenId);
+    event WithdrawReward(address indexed from);
+    event WithdrawNFT(address indexed from, uint256 tokenId);
+
     constructor(address _nft) {
         token = new SellERC();
         nft = NFT(_nft);
@@ -32,6 +36,7 @@ contract StakeNFT is IERC721Receiver {
         originalOwner[tokenId] = from;
         lastWithdraw[from] = block.timestamp;
         hasStake[from] = true;
+        emit Deposit(from, tokenId);
         return 0x150b7a02;
     }
 
@@ -43,6 +48,7 @@ contract StakeNFT is IERC721Receiver {
         require(lastWithdraw[msg.sender] + withdrawalInterval <= block.timestamp, "Wait 24 hours");
         lastWithdraw[msg.sender] = block.timestamp;
         token.mint(msg.sender, 10);
+        emit WithdrawReward(msg.sender);
     }
 
     function withdrawNFT(uint256 tokenId) external {
@@ -51,5 +57,6 @@ contract StakeNFT is IERC721Receiver {
         delete lastWithdraw[msg.sender];
         delete originalOwner[tokenId];
         nft.safeTransferFrom(address(this), msg.sender, tokenId);
+        emit WithdrawNFT(msg.sender, tokenId);
     }
 }
