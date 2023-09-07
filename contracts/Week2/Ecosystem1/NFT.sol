@@ -6,6 +6,9 @@ import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProo
 import {BitMaps} from "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 
+/// @title NFT
+/// @author Julissa Dantes
+/// @notice NFT with a supply of 20. Includes ERC 2918 royalty to have a reward rate of 2.5% for any NFT in the collection.
 contract NFT is ERC721Royalty, Ownable2Step {
     using BitMaps for BitMaps.BitMap;
     error AlreadyClaimed();
@@ -30,8 +33,13 @@ contract NFT is ERC721Royalty, Ownable2Step {
         payable(owner()).transfer(address(this).balance);
     }
 
-    // the discount is that it only pays the royalty price
-    function mint(address to, uint256 amount, bytes32[] calldata proof, uint256 secret) external payable {
+    /// @notice Allows to mint a new token if correct rice was sent, the royalty percentage is transfered to the royalty receiver. Addresses in 
+    /// a merkle tree can mint NFTs at a discount. 
+    /// @param to The address to mint to
+    /// @param tokenId the tokenId to mint
+    /// @param proof The proof that the account is inside the tree
+    /// @param secret A secret data given to the address to prove its involvement
+    function mint(address to, uint256 tokenId, bytes32[] calldata proof, uint256 secret) external payable {
         require(totalSupply < maxSupply, "Max supply reached already");
 
         bool discount = false;
@@ -46,12 +54,16 @@ contract NFT is ERC721Royalty, Ownable2Step {
         (address receiver, uint256 royalty) = royaltyInfo(totalSupply, discount ? price / 2 : price);
 
         totalSupply++;
-        _mint(to, amount);
+        _mint(to, tokenId);
         // Send royalty payment
         payable(receiver).transfer(royalty);
     }
 
-    /// just public for testing purposes
+    /// @notice Verify is an address is inside the merkle tree
+    /// @dev public for testing purposes
+    /// @param proof The proof that the account is inside the tree
+    /// @param sender The address to check
+    /// @param secret A secret data given to the address to prove its involvement
     function verify(bytes32[] calldata proof, address sender, uint256 secret) public view returns (bool ret) {
         bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(sender, secret))));
         return MerkleProof.verify(proof, merkleRoot, leaf);

