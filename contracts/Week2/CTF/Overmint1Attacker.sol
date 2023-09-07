@@ -26,7 +26,7 @@ contract Overmint1Attacker is IERC721Receiver {
         address from,
         uint256 tokenId,
         bytes memory data
-    ) public returns (bytes4) {
+    ) external returns (bytes4) {
         if (counter < 5) {
             attack();
         }

@@ -26,16 +26,6 @@ contract StakeNFT is IERC721Receiver {
         token = new SellERC();
         nft = NFT(_nft);
     }
-    
-    /// @notice Gets triggered when a safeTransfer is dne to the contract, and saves the deposit information
-    function onERC721Received(address, address from, uint256 tokenId, bytes memory) public returns (bytes4) {
-        require(msg.sender == address(nft), "Invalid NFT address");
-        originalOwner[tokenId] = from;
-        lastWithdraw[from] = block.timestamp;
-        hasStake[from] = true;
-        emit Deposit(from, tokenId);
-        return 0x150b7a02;
-    }
 
     function getTokenAddress() external view returns (address) {
         return address(token);
@@ -57,5 +47,15 @@ contract StakeNFT is IERC721Receiver {
         delete originalOwner[tokenId];
         nft.safeTransferFrom(address(this), msg.sender, tokenId);
         emit WithdrawNFT(msg.sender, tokenId);
+    }
+    
+    /// @notice Gets triggered when a safeTransfer is dne to the contract, and saves the deposit information
+    function onERC721Received(address, address from, uint256 tokenId, bytes memory) public returns (bytes4) {
+        require(msg.sender == address(nft), "Invalid NFT address");
+        originalOwner[tokenId] = from;
+        lastWithdraw[from] = block.timestamp;
+        hasStake[from] = true;
+        emit Deposit(from, tokenId);
+        return 0x150b7a02;
     }
 }

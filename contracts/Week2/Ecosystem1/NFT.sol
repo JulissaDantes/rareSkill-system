@@ -25,10 +25,6 @@ contract NFT is ERC721Royalty, Ownable2Step {
         price = _price;
     }
 
-    function _feeDenominator() internal pure virtual override returns (uint96) {
-        return 1000;
-    }
-
     function withdrawFunds() external onlyOwner {
         payable(owner()).transfer(address(this).balance);
     }
@@ -67,5 +63,10 @@ contract NFT is ERC721Royalty, Ownable2Step {
     function verify(bytes32[] calldata proof, address sender, uint256 secret) public view returns (bool ret) {
         bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(sender, secret))));
         return MerkleProof.verify(proof, merkleRoot, leaf);
+    }
+
+
+    function _feeDenominator() internal pure virtual override returns (uint96) {
+        return 1000;
     }
 }
