@@ -6,7 +6,7 @@ import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 
 describe("Overmint2", function () {
     async function setup() {
-        const [owner, attackerWallet] = await ethers.getSigners();
+        const attackerWallet = (await ethers.getSigners())[6];
 
         const VictimFactory = await ethers.getContractFactory("Overmint2");
         const victimContract = await VictimFactory.deploy();
