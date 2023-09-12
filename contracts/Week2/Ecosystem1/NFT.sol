@@ -11,9 +11,9 @@ import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 /// @notice NFT with a supply of 20. Includes ERC 2918 royalty to have a reward rate of 2.5% for any NFT in the collection.
 contract NFT is ERC721Royalty, Ownable2Step {
     using BitMaps for BitMaps.BitMap;
-    error AlreadyClaimed();
+    
     address public royaltyReceiver;
-    uint256 public constant maxSupply = 20;
+    uint256 public constant MAX_SUPPLY = 20;
     uint256 public totalSupply;
     uint256 public immutable price;
     bytes32 public immutable merkleRoot;
@@ -34,15 +34,16 @@ contract NFT is ERC721Royalty, Ownable2Step {
     /// @param to The address to mint to
     /// @param tokenId the tokenId to mint
     /// @param proof The proof that the account is inside the tree
-    /// @param secret A secret data given to the address to prove its involvement
-    function mint(address to, uint256 tokenId, bytes32[] calldata proof, uint256 secret) external payable {
-        require(totalSupply < maxSupply, "Max supply reached already");
+    /// @param index A index data given to the address to prove its involvement
+    function mint(address to, uint256 tokenId, bytes32[] calldata proof, uint256 index) external payable {
+        require(totalSupply < MAX_SUPPLY, "Max supply reached already");
 
         bool discount = false;
         // Check if discount applies
-        if (verify(proof, msg.sender, secret)) {
+        if (verify(proof, msg.sender, index)) {
+            require(!_claimedAddresses.get(index), 'Already claimed');
             discount = true;
-            _claimedAddresses.setTo(secret, true);
+            _claimedAddresses.setTo(index, true);
         }
 
         // Check sent amount
@@ -59,9 +60,9 @@ contract NFT is ERC721Royalty, Ownable2Step {
     /// @dev public for testing purposes
     /// @param proof The proof that the account is inside the tree
     /// @param sender The address to check
-    /// @param secret A secret data given to the address to prove its involvement
-    function verify(bytes32[] calldata proof, address sender, uint256 secret) public view returns (bool ret) {
-        bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(sender, secret))));
+    /// @param index A index data given to the address to prove its involvement
+    function verify(bytes32[] calldata proof, address sender, uint256 index) public view returns (bool ret) {
+        bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(sender, index))));
         return MerkleProof.verify(proof, merkleRoot, leaf);
     }
 

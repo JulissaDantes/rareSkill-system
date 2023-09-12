@@ -77,6 +77,15 @@ describe("Ecosystem 1", function () {
 
         expect(await NFT.balanceOf(other2.address)).to.be.eq(1);
     });
+
+    it("Addresses inside merkle cannot claim more than one", async () => {
+        const proof = tree.getProof(secret);
+        await NFT.connect(other2).mint(other2.address, 2, proof, secret, {value: price / 2n});
+        
+        await expect(NFT.connect(other2).mint(other2.address, 34, proof, secret, {value: price / 2n})).to.be.revertedWith('Already claimed');
+        
+        expect(await NFT.balanceOf(other2.address)).to.be.eq(1);
+    });
   
     it("NFT max supply is 20", async () => {
         const totalSupply = await NFT.totalSupply();
