@@ -7,10 +7,6 @@ Your goal is to remake Uniswap V2 core: https://github.com/Uniswap/v2-core/tree/
 ## Practice
 
 The following changes must be made:
-
-- You must use solidity 0.8.0 or higher, don’t use SafeMath DONE
-- Use an existing fixed point library, but don’t use the Uniswap one.
-- Use Openzeppelin’s or Solmate’s safeTransfer instead of building it from scratch like Unisawp does DONE
 - Instead of implementing a flash swap the way Uniswap does, use EIP 3156. **Be very careful at which point you update the reserves**
 
 Your unit tests should cover the following cases:
@@ -20,9 +16,15 @@ Your unit tests should cover the following cases:
 - Withdrawing liquidity
 - Taking a flashloan
 - Check that the TWAP works as expected
+
+TODO:
 - Add natspec for all the complex functions
 - Create readme for week 3 folder
 - reorder functions by visibility
+- check attacks to v2 to make sure my version works against that
+- fill survey on assignment page
+- add tests for events
+- add tests for all reverts
 
 Corner cases to watch out for:
 
