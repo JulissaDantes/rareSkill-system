@@ -24,11 +24,11 @@ contract Factory is IFactory {
     /// @param tokenA erc20 address, must be smaller than tokenB to save gas in writing and reading operations
     /// @param tokenB erc20 address to pair with tokenB
     function createPair(address tokenA, address tokenB) external returns (address pair) {
-        require(tokenA < tokenB, 'INVALID_ADDRESSES');
-        require(tokenA != address(0), 'ZERO_ADDRESS');
-        require(getPair[tokenA][tokenB] == address(0), 'PAIR_EXISTS'); // single check is sufficient because its sorted
+        require(tokenA < tokenB, "INVALID_ADDRESSES");
+        require(tokenA != address(0), "ZERO_ADDRESS");
+        require(getPair[tokenA][tokenB] == address(0), "PAIR_EXISTS"); // single check is sufficient because its sorted
 
-        Pair newPair = new Pair();  // Deploy a new Pair contract
+        Pair newPair = new Pair(); // Deploy a new Pair contract
         newPair.initialize(tokenA, tokenB);
         pair = address(newPair);
         getPair[tokenA][tokenB] = pair;
@@ -37,12 +37,12 @@ contract Factory is IFactory {
     }
 
     function setFeeTo(address _feeTo) external {
-        require(msg.sender == feeToSetter, 'FORBIDDEN');
+        require(msg.sender == feeToSetter, "FORBIDDEN");
         feeTo = _feeTo;
     }
 
     function setFeeToSetter(address _feeToSetter) external {
-        require(msg.sender == feeToSetter, 'FORBIDDEN');
+        require(msg.sender == feeToSetter, "FORBIDDEN");
         feeToSetter = _feeToSetter;
     }
 }

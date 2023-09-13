@@ -19,7 +19,7 @@ contract Overmint1Attacker is IERC721Receiver {
         counter++;
         Overmint1(victim).mint();
     }
-    
+
     /// @notice Uses reentrancy to bypass a minting restriction
     function onERC721Received(
         address operator,

@@ -11,7 +11,7 @@ import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 /// @notice NFT with a supply of 20. Includes ERC 2918 royalty to have a reward rate of 2.5% for any NFT in the collection.
 contract NFT is ERC721Royalty, Ownable2Step {
     using BitMaps for BitMaps.BitMap;
-    
+
     address public royaltyReceiver;
     uint256 public constant MAX_SUPPLY = 20;
     uint256 public totalSupply;
@@ -29,8 +29,8 @@ contract NFT is ERC721Royalty, Ownable2Step {
         payable(owner()).transfer(address(this).balance);
     }
 
-    /// @notice Allows to mint a new token if correct rice was sent, the royalty percentage is transfered to the royalty receiver. Addresses in 
-    /// a merkle tree can mint NFTs at a discount. 
+    /// @notice Allows to mint a new token if correct rice was sent, the royalty percentage is transfered to the royalty receiver. Addresses in
+    /// a merkle tree can mint NFTs at a discount.
     /// @param to The address to mint to
     /// @param tokenId the tokenId to mint
     /// @param proof The proof that the account is inside the tree
@@ -41,7 +41,7 @@ contract NFT is ERC721Royalty, Ownable2Step {
         bool discount = false;
         // Check if discount applies
         if (verify(proof, msg.sender, index)) {
-            require(!_claimedAddresses.get(index), 'Already claimed');
+            require(!_claimedAddresses.get(index), "Already claimed");
             discount = true;
             _claimedAddresses.setTo(index, true);
         }
@@ -65,7 +65,6 @@ contract NFT is ERC721Royalty, Ownable2Step {
         bytes32 leaf = keccak256(bytes.concat(keccak256(abi.encode(sender, index))));
         return MerkleProof.verify(proof, merkleRoot, leaf);
     }
-
 
     function _feeDenominator() internal pure virtual override returns (uint96) {
         return 1000;

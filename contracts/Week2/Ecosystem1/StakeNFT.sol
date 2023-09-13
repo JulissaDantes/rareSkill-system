@@ -7,9 +7,9 @@ import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Recei
 
 /// @title Stake NFT
 /// @author Julissa Dantes
-/// @notice Smart contract that can mint new ERC20 tokens and receive ERC721 tokens. Users can send their NFTs and withdraw 
+/// @notice Smart contract that can mint new ERC20 tokens and receive ERC721 tokens. Users can send their NFTs and withdraw
 /// 10 ERC20 tokens every 24 hours. The user can withdraw the NFT at any time. The smart contract must take possession of the
-/// NFT and only the user should be able to withdraw it. 
+/// NFT and only the user should be able to withdraw it.
 contract StakeNFT is IERC721Receiver {
     SellERC public token;
     NFT public nft;
@@ -48,7 +48,7 @@ contract StakeNFT is IERC721Receiver {
         nft.safeTransferFrom(address(this), msg.sender, tokenId);
         emit WithdrawNFT(msg.sender, tokenId);
     }
-    
+
     /// @notice Gets triggered when a safeTransfer is dne to the contract, and saves the deposit information
     function onERC721Received(address, address from, uint256 tokenId, bytes memory) public returns (bytes4) {
         require(msg.sender == address(nft), "Invalid NFT address");
