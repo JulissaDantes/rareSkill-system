@@ -28,9 +28,12 @@ contract Factory is IFactory {
         require(tokenA != address(0), "ZERO_ADDRESS");
         require(getPair[tokenA][tokenB] == address(0), "PAIR_EXISTS"); // single check is sufficient because its sorted
 
-        Pair newPair = new Pair(); // Deploy a new Pair contract
-        newPair.initialize(tokenA, tokenB);
-        pair = address(newPair);
+        bytes memory bytecode = type(Pair).creationCode;
+        bytes32 salt = keccak256(abi.encodePacked(tokenA, tokenB));
+        assembly {
+            pair := create2(0, add(bytecode, 32), mload(bytecode), salt)
+        }
+        IPair(pair).initialize(tokenA, tokenB);
         getPair[tokenA][tokenB] = pair;
 
         emit PairCreated(tokenA, tokenB, pair);

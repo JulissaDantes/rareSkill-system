@@ -14,7 +14,11 @@ const config: HardhatUserConfig = {
       },
     },
   },
-  networks: { },
+  networks: { 
+    hardhat: {
+      allowUnlimitedContractSize: true,
+    }
+  },
 };
 
 export default config;
