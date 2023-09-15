@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
-async function addliquidity(minLiquidity, instance, other1, tokenA, tokenB) {
+async function addLiquidity(minLiquidity, instance, other1, tokenA, tokenB) {
     const amount = minLiquidity * 4;// so we are not short on liquidity
     const token0Amount = amount / 4;
     const token1Amount = amount;
@@ -44,7 +44,7 @@ describe.only("Pair", function () {
 
 
     it("should mint liquidity correctly", async function () {
-        const [token0Amount, token1Amount] = await addliquidity(minLiquidity, instance, other1, tokenA, tokenB);
+        const [token0Amount, token1Amount] = await addLiquidity(minLiquidity, instance, other1, tokenA, tokenB);
     
         // Check the liquidity balance of other1
         expect(await tokenA.balanceOf(await instance.getAddress())).to.eq(token0Amount);
@@ -64,7 +64,7 @@ describe.only("Pair", function () {
     });
     
     it("should perform swaps correctly", async function () {
-      await addliquidity(minLiquidity, instance, other1, tokenA, tokenB);
+      await addLiquidity(minLiquidity, instance, other1, tokenA, tokenB);
       // Initial balances
       const token1Amount = 10;
       await tokenA.connect(other1).mint(token1Amount);        
@@ -100,6 +100,33 @@ describe.only("Pair", function () {
         await expect(
             instance.connect(other1).swap(amount0Out, 0, to, data)
         ).to.be.revertedWith("INSUFFICIENT_LIQUIDITY");
+    });
+
+    it("TWAP works as expected", async function () {
+        const initialPrice = [];
+        const reserves = await instance.getReserves();
+
+        const amount0Out = 1;
+        initialPrice.push(await instance.price0CumulativeLast());
+        initialPrice.push(await instance.price1CumulativeLast());
+        ////////////
+        await tokenA.connect(other1).transfer(await instance.getAddress(), amount0Out);
+        // swap to a new price eagerly instead of syncing
+        const to = other1.address;
+        const data = "0x"; // Empty data for this example
+        await instance.connect(other1).swap(0, amount0Out, to, data);
+
+        const secondPrice = [];
+        secondPrice.push(await instance.price0CumulativeLast());
+        secondPrice.push(await instance.price1CumulativeLast());
+
+        const timeElapse = BigInt((await ethers.provider.getBlock("latest"))!.timestamp) - reserves[2];
+        const expected0Price = initialPrice[0] + ((reserves[1]/reserves[0]) * timeElapse); // reserves[2] = _blockTimestampLast
+        const expected1Price = initialPrice[1] + ((reserves[0]/reserves[1]) * timeElapse);
+
+        expect(secondPrice[0]).to.be.eq(expected0Price);
+        expect(secondPrice[1]).to.be.eq(expected1Price);
+        expect(secondPrice[0]).to.be.gt(initialPrice[0]);
     });
 });
 
