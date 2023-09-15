@@ -11,9 +11,9 @@ The following changes must be made:
 
 Your unit tests should cover the following cases:
 
-- Adding liquidity
+- Adding liquidity DONE
 - Swapping
-- Withdrawing liquidity
+- Withdrawing liquidity DONE
 - Taking a flashloan
 - Check that the TWAP works as expected
 
