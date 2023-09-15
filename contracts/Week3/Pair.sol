@@ -4,6 +4,7 @@ pragma solidity 0.8.11;
 import {IPair} from "./interfaces/IPair.sol";
 import {ICallee} from "./interfaces/ICallee.sol";
 import {IFactory} from "./interfaces/IFactory.sol";
+import {IERC3156FlashLender} from "./interfaces/IERC3156FlashLender.sol";
 import {Math} from "./libraries/Math.sol";
 import {MyPairedToken, IERC20} from "./ERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -11,7 +12,7 @@ import "prb-math/contracts/PRBMathSD59x18.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "hardhat/console.sol";
 
-contract Pair is IPair, MyPairedToken, ReentrancyGuard {
+contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
     using PRBMathSD59x18 for uint224;
     using SafeERC20 for IERC20;
 
@@ -54,6 +55,20 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard {
         _reserve0 = reserve0;
         _reserve1 = reserve1;
         _blockTimestampLast = blockTimestampLast;
+    }
+
+    function flashLoan(
+    IERC3156FlashBorrower receiver,
+    address token,
+    uint256 amount,
+    bytes calldata data
+    ) external returns (bool) {
+        ///
+        require(
+            receiver.onFlashLoan(msg.sender, token, amount, fee, data) == keccak256("ERC3156FlashBorrower.onFlashLoan"),
+            "IERC3156: Callback failed"
+        );
+        ///
     }
 
     // update reserves and, on the first call per block, price accumulators
