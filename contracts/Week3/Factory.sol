@@ -3,7 +3,6 @@ pragma solidity 0.8.11;
 
 import {IFactory} from "./interfaces/IFactory.sol";
 import {Pair, IPair} from "./Pair.sol";
-import "hardhat/console.sol";
 
 /// @title Factory
 /// @author Julissa Dantes

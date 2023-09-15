@@ -9,6 +9,7 @@ import {MyPairedToken, IERC20} from "./ERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "prb-math/contracts/PRBMathSD59x18.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "hardhat/console.sol";
 
 contract Pair is IPair, MyPairedToken, ReentrancyGuard {
     using PRBMathSD59x18 for uint224;
@@ -106,10 +107,12 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard {
         uint256 amount1 = balance1 - _reserve1;
 
         bool feeOn = _mintFee(_reserve0, _reserve1);
+
         uint256 _totalSupply = totalSupply(); // must be defined here since totalSupply can update in _mintFee
         if (_totalSupply == 0) {
+            require(Math.sqrt(amount0 * amount1) > MINIMUM_LIQUIDITY, "Invalid token balances");
             liquidity = Math.sqrt(amount0 * amount1) - MINIMUM_LIQUIDITY;
-            _mint(address(0), MINIMUM_LIQUIDITY); // permanently  nonReentrant the first MINIMUM_LIQUIDITY tokens
+            _mint(address(this), MINIMUM_LIQUIDITY); // permanently  nonReentrant the first MINIMUM_LIQUIDITY tokens
         } else {
             liquidity = Math.min((amount0 * _totalSupply) / _reserve0, (amount1 * _totalSupply) / _reserve1);
         }

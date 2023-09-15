@@ -6,4 +6,8 @@ import {ERC20Permit} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20P
 
 contract MyPairedToken is ERC20, ERC20Permit {
     constructor() ERC20("MyPairedToken", "MTK") ERC20Permit("MyToken") {}
+
+    function mint(uint256 amount) external {
+        _mint(msg.sender, amount);
+    }
 }
