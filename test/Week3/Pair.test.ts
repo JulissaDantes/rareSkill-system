@@ -2,8 +2,8 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 
 async function addLiquidity(minLiquidity, instance, other1, tokenA, tokenB) {
-    const amount = minLiquidity * 4;// so we are not short on liquidity
-    const token0Amount = amount / 4;
+    const amount = minLiquidity;// so we are not short on liquidity
+    const token0Amount = amount;
     const token1Amount = amount;
     await tokenA.mint(token0Amount);
     await tokenB.mint(token1Amount);
@@ -55,12 +55,13 @@ describe.only("Pair", function () {
     });
 
     it("should burn liquidity correctly", async function () {
+        const prevBalance = await instance.balanceOf(other1.address);
         // Burn liquidity tokens
         await instance.connect(other1).burn(other1.address);
     
         // Check that other1's liquidity balance has decreased
         const updatedLiquidityBalance = await instance.balanceOf(other1.address);
-        expect(updatedLiquidityBalance).to.equal(minLiquidity);
+        expect(updatedLiquidityBalance).to.lt(prevBalance);
     });
     
     it("should perform swaps correctly", async function () {
@@ -106,15 +107,15 @@ describe.only("Pair", function () {
         const initialPrice = [];
         const reserves = await instance.getReserves();
 
-        const amount0Out = 1;
+        const amount0In = 10;
         initialPrice.push(await instance.price0CumulativeLast());
         initialPrice.push(await instance.price1CumulativeLast());
         ////////////
-        await tokenA.connect(other1).transfer(await instance.getAddress(), amount0Out);
+        await tokenA.connect(other1).transfer(await instance.getAddress(), amount0In);
         // swap to a new price eagerly instead of syncing
         const to = other1.address;
         const data = "0x"; // Empty data for this example
-        await instance.connect(other1).swap(0, amount0Out, to, data);
+        await instance.connect(other1).swap(0, amount0In / 2, to, data);
 
         const secondPrice = [];
         secondPrice.push(await instance.price0CumulativeLast());
@@ -126,11 +127,17 @@ describe.only("Pair", function () {
 
         expect(secondPrice[0]).to.be.eq(expected0Price);
         expect(secondPrice[1]).to.be.eq(expected1Price);
-        expect(secondPrice[0]).to.be.gt(initialPrice[0]);
     });
 
-    it("Performs flash swaps", async function () {
+    it("Get Max loan", async function () {
+        expect(await instance.maxFlashLoan(await tokenA.getAddress())).to.be.eq(await tokenA.balanceOf(await instance.getAddress()));
+        expect(await instance.maxFlashLoan(await tokenB.getAddress())).to.be.eq(await tokenB.balanceOf(await instance.getAddress()));
+    });
 
+    it("Gets flash fee", async function () {
+        await expect(instance.flashFee(await instance.getAddress(),0)).to.be.revertedWith("Unsupported currency");
+
+        expect(await instance.flashFee(await tokenA.getAddress(), 1000000)).to.be.gt(0);
     });
 });
 

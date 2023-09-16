@@ -17,8 +17,8 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
     using PRBMathSD59x18 for uint224;
     using SafeERC20 for IERC20;
 
-    uint256 public constant MINIMUM_LIQUIDITY = 10 ** 3;
-    uint256 public FLASH_FEE = 1; // Flash swaps fee is always On
+    uint256 public constant MINIMUM_LIQUIDITY = 10;
+    uint256 public constant FLASH_FEE = 1;
     bytes4 private constant SELECTOR = bytes4(keccak256(bytes("transfer(address,uint256)")));
 
     address public factory;
@@ -64,7 +64,7 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
     /// as `payment` for the loaned token.
     /// @param receiver the address of the token recipient.
     /// @param token the token address user wants to borrow. Must match the address of token0 or token1.
-    /// @param amount The amount of tokens lent.
+    /// @param amount The amount of tokens lend.
     /// @param data A data parameter to be passed on to the `receiver` for any custom use.
     function flashLoan(
         IERC3156FlashBorrower receiver,
@@ -76,15 +76,15 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         address tokenOut = token == token0 ? token0 : token1;
         address tokenIn = tokenOut == token0 ? token1 : token0;
         IERC20(tokenOut).safeTransfer(address(receiver), amount);
-
+        uint256 fee = _flashFee(token, amount);
         require(
-            receiver.onFlashLoan(msg.sender, token, amount, FLASH_FEE, data) == keccak256("ERC3156FlashBorrower.onFlashLoan"),
+            receiver.onFlashLoan(msg.sender, token, amount, fee, data) == keccak256("ERC3156FlashBorrower.onFlashLoan"),
             "IERC3156: Callback failed"
         );
         // collect token + fee
         // compute tokenIn for that token out
         uint256 _allowance = IERC20(tokenIn).allowance(address(receiver), address(this));
-        require(_allowance >= (amount + FLASH_FEE), "Repay not approved");
+        require(_allowance >= (amount + fee), "Repay not approved");
         //update reserves and all that
     }
 
@@ -94,7 +94,18 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         return IERC20(token).balanceOf(address(this));
     }
 
-    function flashFee(address token, uint256 amount) external view returns (uint256) {}
+    function flashFee(address token, uint256 amount) external view returns (uint256) {
+        require(token == token0 || token == token1, "Unsupported currency");
+        return _flashFee(token, amount);
+    }
+
+    function _flashFee(address token, uint256 amount) internal view returns (uint256) {
+        if(token == token0) {
+            return amount * FLASH_FEE / 10000;
+        } else {
+            return amount * FLASH_FEE / 10;
+        }
+    }
 
     // update reserves and, on the first call per block, price accumulators
     function _update(uint256 balance0, uint256 balance1, uint112 _reserve0, uint112 _reserve1) private {
@@ -177,7 +188,7 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         amount0 = (liquidity * balance0) / _totalSupply; // using balances ensures pro-rata distribution
         amount1 = (liquidity * balance1) / _totalSupply; // using balances ensures pro-rata distribution
         require(amount0 > 0 && amount1 > 0, "INSUFFICIENT_LIQUIDITY_BURNED");
-        _burn(address(this), liquidity);
+        _burn(to, liquidity);
         IERC20(_token0).safeTransfer(to, amount0);
         IERC20(_token1).safeTransfer(to, amount1);
         balance0 = IERC20(_token0).balanceOf(address(this));
