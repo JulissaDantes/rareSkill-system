@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { ethers } from 'hardhat';
 import { Signer, Contract } from 'ethers';
 
-describe('Factory', () => {
+describe.only('Factory', () => {
   let factory: Contract;
   let tokenA: Contract;
   let tokenB: Contract;

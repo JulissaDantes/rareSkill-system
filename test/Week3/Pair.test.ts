@@ -139,5 +139,15 @@ describe.only("Pair", function () {
 
         expect(await instance.flashFee(await tokenA.getAddress(), 1000000)).to.be.gt(0);
     });
+
+    it("Performs flash swap", async function () {
+        // Deploys borrower
+        const receiver = await ethers.deployContract("FlashBorrower", [await instance.getAddress()]);
+        // perform flash loan
+        await expect(receiver.flashBorrow(await tokenA.getAddress(), 1))
+        .to.emit(instance, 'FlashSwap')
+        .withArgs(await receiver.getAddress(), await tokenA.getAddress(), 1);
+        // check values
+    });
 });
 

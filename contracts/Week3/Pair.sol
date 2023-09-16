@@ -43,6 +43,8 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
     );
     event Sync(uint112 reserve0, uint112 reserve1);
 
+    event FlashSwap(address indexed receiver, address indexed token, uint256 amount);
+
     constructor() {
         factory = msg.sender;
     }
@@ -59,6 +61,11 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         _blockTimestampLast = blockTimestampLast;
     }
 
+    // force reserves to match balances
+    function sync() public nonReentrant {
+        _update(IERC20(token0).balanceOf(address(this)), IERC20(token1).balanceOf(address(this)), reserve0, reserve1);
+    }
+
     /// @dev An ERC3156 based implementation of a flash swap. The difference between a normal swap is that instead
     /// of giving the token they are are trying to swap before the swap its performed in the callback function
     /// as `payment` for the loaned token.
@@ -72,25 +79,33 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         uint256 amount,
         bytes calldata data
     ) external returns (bool) {
-        require(token == token0 || token == token1, "Unsupported currency");
-        address tokenOut = token == token0 ? token0 : token1;
-        address tokenIn = tokenOut == token0 ? token1 : token0;
+        address _token0 = token0;
+        address _token1 = token1;
+        require(token == _token0 || token == _token1, "Unsupported currency");
+        address tokenOut = token == _token0 ? _token0 : _token1;
+        address tokenIn = tokenOut == _token0 ? _token1 : _token0;
         IERC20(tokenOut).safeTransfer(address(receiver), amount);
-        uint256 fee = _flashFee(token, amount);
+        // The fee takes into consideration the amount given to the receipient
+        uint256 AmountIn = _flashFee(token, amount);
         require(
-            receiver.onFlashLoan(msg.sender, token, amount, fee, data) == keccak256("ERC3156FlashBorrower.onFlashLoan"),
+            receiver.onFlashLoan(msg.sender, token, amount, AmountIn, data) ==
+                keccak256("ERC3156FlashBorrower.onFlashLoan"),
             "IERC3156: Callback failed"
         );
-        // collect token + fee
-        // compute tokenIn for that token out
+        // collect tokens
         uint256 _allowance = IERC20(tokenIn).allowance(address(receiver), address(this));
-        require(_allowance >= (amount + fee), "Repay not approved");
-        //update reserves and all that
+        require(_allowance >= (AmountIn), "Repay not approved");
+
+        require(IERC20(tokenIn).transferFrom(address(receiver), address(this), AmountIn), "Repay failed");
+
+        //update reserves
+        sync();
+        emit FlashSwap(address(receiver), token, amount);
+
+        return true;
     }
 
-    function maxFlashLoan(
-        address token
-    ) external view override returns (uint256) {
+    function maxFlashLoan(address token) external view override returns (uint256) {
         return IERC20(token).balanceOf(address(this));
     }
 
@@ -100,10 +115,11 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
     }
 
     function _flashFee(address token, uint256 amount) internal view returns (uint256) {
-        if(token == token0) {
-            return amount * FLASH_FEE / 10000;
+        if (token == token0) {
+            //fix this to make more sense in terms of ratio TODO
+            return (amount * FLASH_FEE) / 10000;
         } else {
-            return amount * FLASH_FEE / 10;
+            return (amount * FLASH_FEE) / 10;
         }
     }
 
@@ -238,10 +254,5 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         address _token1 = token1; // gas savings
         IERC20(_token0).safeTransfer(to, IERC20(_token0).balanceOf(address(this)) - reserve0);
         IERC20(_token1).safeTransfer(to, IERC20(_token1).balanceOf(address(this)) - reserve1);
-    }
-
-    // force reserves to match balances
-    function sync() external nonReentrant {
-        _update(IERC20(token0).balanceOf(address(this)), IERC20(token1).balanceOf(address(this)), reserve0, reserve1);
     }
 }

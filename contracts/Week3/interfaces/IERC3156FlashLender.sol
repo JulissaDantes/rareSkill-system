@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.11;
 
-import {IERC3156FlashBorrower} from './IERC3156FlashBorrower.sol';
+import {IERC3156FlashBorrower} from "./IERC3156FlashBorrower.sol";
 
 interface IERC3156FlashLender {
     /**
@@ -32,4 +32,11 @@ interface IERC3156FlashLender {
         uint256 amount,
         bytes calldata data
     ) external returns (bool);
+
+    /*
+     * The following functions are just to be able to call these functions from the borrower
+     */
+    function token0() external view returns (address);
+
+    function token1() external view returns (address);
 }

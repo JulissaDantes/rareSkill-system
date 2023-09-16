@@ -1,25 +1,11 @@
 # rareSkill-system
 I am currently enrolled in RareSkills bootcamp and this repo is for the projects I make while I'm at it.
 
-## Pending
-
-Your goal is to remake Uniswap V2 core: https://github.com/Uniswap/v2-core/tree/master/contracts
-## Practice
-
-The following changes must be made:
-- Instead of implementing a flash swap the way Uniswap does, use EIP 3156. **Be very careful at which point you update the reserves**
-
-Your unit tests should cover the following cases:
-
-- Taking a flashloan
-
 TODO:
 - Add natspec for all the complex functions
 - Create readme for week 3 folder
 - reorder functions by visibility
 - check attacks to v2 to make sure my version works against that
-- add tests for events
-- add tests for all reverts
 
 Corner cases to watch out for:
 
