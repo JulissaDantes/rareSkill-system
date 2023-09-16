@@ -8,7 +8,7 @@ import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 
 /// @title NFT
 /// @author Julissa Dantes
-/// @notice NFT with a supply of 20. Includes ERC 2918 royalty to have a reward rate of 2.5% for any NFT in the collection.
+/// @dev NFT with a supply of 20. Includes ERC 2918 royalty to have a reward rate of 2.5% for any NFT in the collection.
 contract NFT is ERC721Royalty, Ownable2Step {
     using BitMaps for BitMaps.BitMap;
 
@@ -29,7 +29,7 @@ contract NFT is ERC721Royalty, Ownable2Step {
         payable(owner()).transfer(address(this).balance);
     }
 
-    /// @notice Allows to mint a new token if correct rice was sent, the royalty percentage is transfered to the royalty receiver. Addresses in
+    /// @dev Allows to mint a new token if correct rice was sent, the royalty percentage is transfered to the royalty receiver. Addresses in
     /// a merkle tree can mint NFTs at a discount.
     /// @param to The address to mint to
     /// @param tokenId the tokenId to mint
@@ -56,7 +56,7 @@ contract NFT is ERC721Royalty, Ownable2Step {
         payable(receiver).transfer(royalty);
     }
 
-    /// @notice Verify is an address is inside the merkle tree
+    /// @dev Verify is an address is inside the merkle tree
     /// @dev public for testing purposes
     /// @param proof The proof that the account is inside the tree
     /// @param sender The address to check

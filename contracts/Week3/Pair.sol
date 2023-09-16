@@ -5,6 +5,7 @@ import {IPair} from "./interfaces/IPair.sol";
 import {ICallee} from "./interfaces/ICallee.sol";
 import {IFactory} from "./interfaces/IFactory.sol";
 import {IERC3156FlashLender} from "./interfaces/IERC3156FlashLender.sol";
+import {IERC3156FlashBorrower} from "./interfaces/IERC3156FlashBorrower.sol";
 import {Math} from "./libraries/Math.sol";
 import {MyPairedToken, IERC20} from "./ERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -17,6 +18,7 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
     using SafeERC20 for IERC20;
 
     uint256 public constant MINIMUM_LIQUIDITY = 10 ** 3;
+    uint256 public FLASH_FEE = 1; // Flash swaps fee is always On
     bytes4 private constant SELECTOR = bytes4(keccak256(bytes("transfer(address,uint256)")));
 
     address public factory;
@@ -57,19 +59,42 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         _blockTimestampLast = blockTimestampLast;
     }
 
+    /// @dev An ERC3156 based implementation of a flash swap. The difference between a normal swap is that instead
+    /// of giving the token they are are trying to swap before the swap its performed in the callback function
+    /// as `payment` for the loaned token.
+    /// @param receiver the address of the token recipient.
+    /// @param token the token address user wants to borrow. Must match the address of token0 or token1.
+    /// @param amount The amount of tokens lent.
+    /// @param data A data parameter to be passed on to the `receiver` for any custom use.
     function flashLoan(
-    IERC3156FlashBorrower receiver,
-    address token,
-    uint256 amount,
-    bytes calldata data
+        IERC3156FlashBorrower receiver,
+        address token,
+        uint256 amount,
+        bytes calldata data
     ) external returns (bool) {
-        ///
+        require(token == token0 || token == token1, "Unsupported currency");
+        address tokenOut = token == token0 ? token0 : token1;
+        address tokenIn = tokenOut == token0 ? token1 : token0;
+        IERC20(tokenOut).safeTransfer(address(receiver), amount);
+
         require(
-            receiver.onFlashLoan(msg.sender, token, amount, fee, data) == keccak256("ERC3156FlashBorrower.onFlashLoan"),
+            receiver.onFlashLoan(msg.sender, token, amount, FLASH_FEE, data) == keccak256("ERC3156FlashBorrower.onFlashLoan"),
             "IERC3156: Callback failed"
         );
-        ///
+        // collect token + fee
+        // compute tokenIn for that token out
+        uint256 _allowance = IERC20(tokenIn).allowance(address(receiver), address(this));
+        require(_allowance >= (amount + FLASH_FEE), "Repay not approved");
+        //update reserves and all that
     }
+
+    function maxFlashLoan(
+        address token
+    ) external view override returns (uint256) {
+        return IERC20(token).balanceOf(address(this));
+    }
+
+    function flashFee(address token, uint256 amount) external view returns (uint256) {}
 
     // update reserves and, on the first call per block, price accumulators
     function _update(uint256 balance0, uint256 balance1, uint112 _reserve0, uint112 _reserve1) private {
@@ -180,10 +205,10 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
             if (data.length > 0) ICallee(to).Call(msg.sender, amount0Out, amount1Out, data);
             balance0 = IERC20(_token0).balanceOf(address(this));
             balance1 = IERC20(_token1).balanceOf(address(this));
-        }      
+        }
         uint256 amount0In = balance0 > _reserve0 - amount0Out ? balance0 - (_reserve0 - amount0Out) : 0;
         uint256 amount1In = balance1 > _reserve1 - amount1Out ? balance1 - (_reserve1 - amount1Out) : 0;
-        
+
         require(amount0In > 0 || amount1In > 0, "INSUFFICIENT_INPUT_AMOUNT");
         {
             // scope for reserve{0,1}Adjusted, avoids stack too deep errors

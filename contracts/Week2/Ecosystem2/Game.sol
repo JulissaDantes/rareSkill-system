@@ -5,7 +5,7 @@ import {ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/
 
 /// @title Game
 /// @author Julissa Dantes
-/// @notice Figures out how many prime numbered tokenIds an account has
+/// @dev Figures out how many prime numbered tokenIds an account has
 contract Game {
     ERC721Enumerable public token;
 
@@ -13,7 +13,7 @@ contract Game {
         token = ERC721Enumerable(_token);
     }
 
-    /// @notice Checks all the tokenIds by the owner and counts how many are prime
+    /// @dev Checks all the tokenIds by the owner and counts how many are prime
     function getBalance(address owner) external view returns (uint256 amount) {
         // get all nfts first
         uint256 balance = token.balanceOf(owner);
@@ -26,7 +26,7 @@ contract Game {
         }
     }
 
-    /// @notice Helper function to check if a number is prime, by checking if its divisible by any of the numbers
+    /// @dev Helper function to check if a number is prime, by checking if its divisible by any of the numbers
     /// less than the number itself.
     function isPrime(uint256 n, uint256 i) internal pure returns (bool) {
         if (n <= 2) return (n == 2) ? true : false;

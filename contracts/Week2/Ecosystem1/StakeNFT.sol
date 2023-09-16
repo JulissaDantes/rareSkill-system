@@ -7,7 +7,7 @@ import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Recei
 
 /// @title Stake NFT
 /// @author Julissa Dantes
-/// @notice Smart contract that can mint new ERC20 tokens and receive ERC721 tokens. Users can send their NFTs and withdraw
+/// @dev Smart contract that can mint new ERC20 tokens and receive ERC721 tokens. Users can send their NFTs and withdraw
 /// 10 ERC20 tokens every 24 hours. The user can withdraw the NFT at any time. The smart contract must take possession of the
 /// NFT and only the user should be able to withdraw it.
 contract StakeNFT is IERC721Receiver {
@@ -31,7 +31,7 @@ contract StakeNFT is IERC721Receiver {
         return address(token);
     }
 
-    /// @notice Transfer rewards to those who have staked an NFT. Can only be claimed every 24 hours.
+    /// @dev Transfer rewards to those who have staked an NFT. Can only be claimed every 24 hours.
     function withdrawTokens() external {
         require(lastWithdraw[msg.sender] + withdrawalInterval <= block.timestamp, "Wait 24 hours");
         lastWithdraw[msg.sender] = block.timestamp;
@@ -39,7 +39,7 @@ contract StakeNFT is IERC721Receiver {
         emit WithdrawReward(msg.sender);
     }
 
-    /// @notice Allows stakers to remove their NFT from the contract
+    /// @dev Allows stakers to remove their NFT from the contract
     function withdrawNFT(uint256 tokenId) external {
         require(msg.sender == originalOwner[tokenId], "Not the original owner");
         hasStake[msg.sender] = false;
@@ -49,7 +49,7 @@ contract StakeNFT is IERC721Receiver {
         emit WithdrawNFT(msg.sender, tokenId);
     }
 
-    /// @notice Gets triggered when a safeTransfer is dne to the contract, and saves the deposit information
+    /// @dev Gets triggered when a safeTransfer is dne to the contract, and saves the deposit information
     function onERC721Received(address, address from, uint256 tokenId, bytes memory) public returns (bytes4) {
         require(msg.sender == address(nft), "Invalid NFT address");
         originalOwner[tokenId] = from;

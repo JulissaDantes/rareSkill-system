@@ -6,7 +6,7 @@ import {IERC721Receiver} from "@openzeppelin/contracts/token/ERC721/IERC721Recei
 
 /// @title Overmint 1 Attacker
 /// @author Julissa Dantes
-/// @notice This contract will exploit Overmint 1 to bypass the minting restriction
+/// @dev This contract will exploit Overmint 1 to bypass the minting restriction
 contract Overmint1Attacker is IERC721Receiver {
     address public victim;
     uint256 public counter;
@@ -20,7 +20,7 @@ contract Overmint1Attacker is IERC721Receiver {
         Overmint1(victim).mint();
     }
 
-    /// @notice Uses reentrancy to bypass a minting restriction
+    /// @dev Uses reentrancy to bypass a minting restriction
     function onERC721Received(
         address operator,
         address from,

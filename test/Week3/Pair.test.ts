@@ -128,5 +128,9 @@ describe.only("Pair", function () {
         expect(secondPrice[1]).to.be.eq(expected1Price);
         expect(secondPrice[0]).to.be.gt(initialPrice[0]);
     });
+
+    it("Performs flash swaps", async function () {
+
+    });
 });
 

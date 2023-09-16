@@ -6,7 +6,7 @@ import {Pair, IPair} from "./Pair.sol";
 
 /// @title Factory
 /// @author Julissa Dantes
-/// @notice Deploys a new Pair contract given 2 token addresses
+/// @dev Deploys a new Pair contract given 2 token addresses
 contract Factory is IFactory {
     address public feeTo;
     address public feeToSetter;
@@ -19,7 +19,7 @@ contract Factory is IFactory {
         feeToSetter = _feeToSetter;
     }
 
-    /// @notice Deploys a new Pair contract for the given addresses
+    /// @dev Deploys a new Pair contract for the given addresses
     /// @param tokenA erc20 address, must be smaller than tokenB to save gas in writing and reading operations
     /// @param tokenB erc20 address to pair with tokenB
     function createPair(address tokenA, address tokenB) external returns (address pair) {

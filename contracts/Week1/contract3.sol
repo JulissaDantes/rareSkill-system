@@ -10,7 +10,7 @@ import "hardhat/console.sol";
 
 /// @title Token sale and buyback with bonding curve
 /// @author Julissa Dantes
-/// @notice The more tokens a user buys, the more expensive the token becomes. To keep things simple, use a linear bonding curve. When a person
+/// @dev The more tokens a user buys, the more expensive the token becomes. To keep things simple, use a linear bonding curve. When a person
 /// sends a token to the contract with ERC1363 or ERC777, it should trigger the receive function. If you use a separate contract to handle the
 /// reserve and use ERC20, you need to use the approve and send workflow. This should support fractions of tokens.
 ///
@@ -45,7 +45,7 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
         return address(tokenA);
     }
 
-    /// @notice Allows accounts to sell their tokens A for tokens B. Account needs to cooldown before buying again
+    /// @dev Allows accounts to sell their tokens A for tokens B. Account needs to cooldown before buying again
     /// @param amount The amount of tokens to sell
     function sellTokens(uint256 amount) external nonReentrant {
         require(
@@ -66,7 +66,7 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
         emit SellTokens(msg.sender, tokenBAmount, price);
     }
 
-    /// @notice Allows accounts to buy tokens A with tokens B.
+    /// @dev Allows accounts to buy tokens A with tokens B.
     /// @param amount The amount of tokens to minted
     function onTransferReceived(
         address,
@@ -91,7 +91,7 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
         return IERC1363Receiver.onTransferReceived.selector;
     }
 
-    /// @notice Returns current price of token A using linear bonding curve formula to return the price,
+    /// @dev Returns current price of token A using linear bonding curve formula to return the price,
     /// price = (slope * tokenSupply) + initialPrice.
     function getPrice() public view returns (uint256) {
         return (slope + tokenA.totalSupply()) + initialPrice;

@@ -18,7 +18,6 @@ TODO:
 - Create readme for week 3 folder
 - reorder functions by visibility
 - check attacks to v2 to make sure my version works against that
-- fill survey on assignment page
 - add tests for events
 - add tests for all reverts
 
