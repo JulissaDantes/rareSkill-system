@@ -139,8 +139,26 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
 
             // * never overflows, and + overflow is desired
             // The formulas used here are related to the ratio of token balances over time.
-            price0CumulativeLast += uint(PRBMathSD59x18.toInt(PRBMathSD59x18.div(PRBMathSD59x18.fromInt(int256(uint256(_reserve1))),PRBMathSD59x18.fromInt(int256(uint256(_reserve0)))))) * timeElapsed;
-            price1CumulativeLast += uint(PRBMathSD59x18.toInt(PRBMathSD59x18.div(PRBMathSD59x18.fromInt(int256(uint256(_reserve0))),PRBMathSD59x18.fromInt(int256(uint256(_reserve1)))))) * timeElapsed;
+            price0CumulativeLast +=
+                uint(
+                    PRBMathSD59x18.toInt(
+                        PRBMathSD59x18.div(
+                            PRBMathSD59x18.fromInt(int256(uint256(_reserve1))),
+                            PRBMathSD59x18.fromInt(int256(uint256(_reserve0)))
+                        )
+                    )
+                ) *
+                timeElapsed;
+            price1CumulativeLast +=
+                uint(
+                    PRBMathSD59x18.toInt(
+                        PRBMathSD59x18.div(
+                            PRBMathSD59x18.fromInt(int256(uint256(_reserve0))),
+                            PRBMathSD59x18.fromInt(int256(uint256(_reserve1)))
+                        )
+                    )
+                ) *
+                timeElapsed;
         }
         reserve0 = uint112(balance0);
         reserve1 = uint112(balance1);

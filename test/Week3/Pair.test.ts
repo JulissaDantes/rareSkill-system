@@ -70,7 +70,7 @@ describe.only("Pair", function () {
         expect(updatedLiquidityBalance).to.lt(prevBalance);
     });
     
-    it.only("should perform swaps correctly", async function () {
+    it("should perform swaps correctly", async function () {
       await addLiquidity(minLiquidity, instance, other1, tokenA, tokenB);
       // Initial balances
       const token1Amount = 10;
@@ -121,14 +121,12 @@ describe.only("Pair", function () {
         initialPrice.push(await instance.price1CumulativeLast());
         ////////////
         const token1Amount = 10;
-
-        const amount0In = token1Amount/2;
-        await tokenA.connect(other1).mint(token1Amount);  
-        await tokenA.connect(other1).transfer(await instance.getAddress(), amount0In);
+ 
+        await tokenA.connect(other1).transfer(await instance.getAddress(), token1Amount);
         // swap to a new price eagerly instead of syncing
         const to = other1.address;
         const data = "0x"; // Empty data for this example
-        await instance.connect(other1).swap(0, amount0In / 2, to, data);
+        await instance.connect(other1).swap(0, token1Amount / 2, to, data);
 
         const secondPrice = [];
         secondPrice.push(await instance.price0CumulativeLast());
