@@ -28,8 +28,14 @@ describe.only("Pair", function () {
         tokenA = await ethers.deployContract("MyPairedToken");
         tokenB = await ethers.deployContract("MyPairedToken");
         factory = await ethers.deployContract("Factory", [owner.address]);
-        // TODO make next line cleaner
-        [token0 , token1] = (await tokenB.getAddress() < await tokenA.getAddress())? [await tokenB.getAddress(), await tokenA.getAddress()]: [await tokenA.getAddress(), await tokenB.getAddress()];
+
+        const tokenAddresses = await Promise.all([
+            tokenB.getAddress(),
+            tokenA.getAddress()
+          ]);
+          
+        [token0, token1] = tokenAddresses.sort();
+
         await factory.createPair(token0, token1);
         const pairAddress = await factory.getPair(token0, token1);
         const PairContract = await ethers.getContractFactory("Pair");
@@ -64,7 +70,7 @@ describe.only("Pair", function () {
         expect(updatedLiquidityBalance).to.lt(prevBalance);
     });
     
-    it("should perform swaps correctly", async function () {
+    it.only("should perform swaps correctly", async function () {
       await addLiquidity(minLiquidity, instance, other1, tokenA, tokenB);
       // Initial balances
       const token1Amount = 10;
@@ -80,17 +86,21 @@ describe.only("Pair", function () {
       const to = other1.address;
       const data = "0x"; // Empty data for this example
       await instance.connect(other1).swap(0, amount0Out, to, data);
+
       // Check the updated balances
       const updatedBalance0Pair = await tokenA.balanceOf(await instance.getAddress());
       const updatedBalance1Pair = await tokenB.balanceOf(await instance.getAddress());
-      const updatedBalance0 = await tokenA.balanceOf(other1.address);
-      const updatedBalance1 = await tokenB.balanceOf(other1.address);
-      // User must have more tokenB and less tokenA
-      expect(updatedBalance0).to.be.lt(balance0);
-      expect(updatedBalance1).to.be.gt(balance1);
+
       // Contract must have more tokenA and less tokenB
       expect(updatedBalance0Pair).to.be.gt(balance0Pair);
       expect(updatedBalance1Pair).to.be.lt(balance1Pair);
+
+      const updatedBalance0 = await tokenA.balanceOf(other1.address);
+      const updatedBalance1 = await tokenB.balanceOf(other1.address);
+
+      // User must have more tokenB and less tokenA
+      expect(updatedBalance0).to.be.lt(balance0);
+      expect(updatedBalance1).to.be.gt(balance1);
     });
 
     it("should not allow swaps with insufficient liquidity", async function () {
@@ -107,10 +117,13 @@ describe.only("Pair", function () {
         const initialPrice = [];
         const reserves = await instance.getReserves();
 
-        const amount0In = 10;
         initialPrice.push(await instance.price0CumulativeLast());
         initialPrice.push(await instance.price1CumulativeLast());
         ////////////
+        const token1Amount = 10;
+
+        const amount0In = token1Amount/2;
+        await tokenA.connect(other1).mint(token1Amount);  
         await tokenA.connect(other1).transfer(await instance.getAddress(), amount0In);
         // swap to a new price eagerly instead of syncing
         const to = other1.address;

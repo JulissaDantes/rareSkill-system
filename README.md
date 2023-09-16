@@ -3,7 +3,6 @@ I am currently enrolled in RareSkills bootcamp and this repo is for the projects
 
 TODO:
 - Add natspec for all the complex functions
-- Create readme for week 3 folder
 - reorder functions by visibility
 - check attacks to v2 to make sure my version works against that
 

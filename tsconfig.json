@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "module": "NodeNext", // or "ESNext" if you prefer
+      "moduleResolution": "NodeNext", // specify "NodeNext" here
+      // Other compiler options...
+    },
+    // Other configuration settings...
+  }
+  

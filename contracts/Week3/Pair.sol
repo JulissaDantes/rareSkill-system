@@ -8,6 +8,7 @@ import {IERC3156FlashLender} from "./interfaces/IERC3156FlashLender.sol";
 import {IERC3156FlashBorrower} from "./interfaces/IERC3156FlashBorrower.sol";
 import {Math} from "./libraries/Math.sol";
 import {MyPairedToken, IERC20} from "./ERC20.sol";
+// OpenZeppelin version used: 4.9.3
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "prb-math/contracts/PRBMathSD59x18.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -132,10 +133,14 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         uint32 timeElapsed = blockTimestamp - blockTimestampLast;
 
         if (timeElapsed > 0 && _reserve0 != 0 && _reserve1 != 0) {
+            /* for clarity this is what is going on in the next lines:
+            price0CumulativeLast += (_reserve1 / _reserve0) * timeElapsed;
+            price1CumulativeLast += (_reserve0 / _reserve1) * timeElapsed;*/
+
             // * never overflows, and + overflow is desired
             // The formulas used here are related to the ratio of token balances over time.
-            price0CumulativeLast += (_reserve1 / _reserve0) * timeElapsed;
-            price1CumulativeLast += (_reserve0 / _reserve1) * timeElapsed;
+            price0CumulativeLast += uint(PRBMathSD59x18.toInt(PRBMathSD59x18.div(PRBMathSD59x18.fromInt(int256(uint256(_reserve1))),PRBMathSD59x18.fromInt(int256(uint256(_reserve0)))))) * timeElapsed;
+            price1CumulativeLast += uint(PRBMathSD59x18.toInt(PRBMathSD59x18.div(PRBMathSD59x18.fromInt(int256(uint256(_reserve0))),PRBMathSD59x18.fromInt(int256(uint256(_reserve1)))))) * timeElapsed;
         }
         reserve0 = uint112(balance0);
         reserve1 = uint112(balance1);
