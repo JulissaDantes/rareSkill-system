@@ -261,14 +261,14 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
     }
 
     function _flashFee(address token, uint256 amount) internal view returns (uint256) {
-        (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); 
+        (uint112 _reserve0, uint112 _reserve1, ) = getReserves();
         if (token == token0) {
             return ((amount * _reserve1) / (_reserve0)) + FLASH_FEE;
         } else {
             return ((amount * _reserve0) / (_reserve1)) + FLASH_FEE;
         }
     }
-    
+
     /// @dev if fee is on, mint liquidity equivalent to 1/6th of the growth in sqrt(k)
     /// @param _reserve0 balance of token0.
     /// @param _reserve1 balance of token1.
