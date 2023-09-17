@@ -3,7 +3,7 @@ pragma solidity 0.8.11;
 
 import {IERC3156FlashBorrower} from "./interfaces/IERC3156FlashBorrower.sol";
 import {IERC3156FlashLender} from "./interfaces/IERC3156FlashLender.sol";
-import {Pair} from "./Pair.sol";
+import {Pair, MyPairedToken} from "./Pair.sol";
 
 /// This was taken from the ERC specs. See https://eips.ethereum.org/EIPS/eip-3156 for reference.
 contract FlashBorrower is IERC3156FlashBorrower {
@@ -38,8 +38,8 @@ contract FlashBorrower is IERC3156FlashBorrower {
         address payToken = token == lender.token0() ? lender.token1() : lender.token0();
         uint256 _allowance = Pair(payToken).allowance(address(this), address(lender));
         uint256 _fee = lender.flashFee(token, amount);
-        uint256 _repayment = amount + _fee;
-        Pair(payToken).approve(address(lender), _allowance + _repayment);
+        MyPairedToken(payToken).mint(_allowance + _fee);
+        MyPairedToken(payToken).approve(address(lender), _allowance + _fee);
         lender.flashLoan(this, token, amount, data);
     }
 }

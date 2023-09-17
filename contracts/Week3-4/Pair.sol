@@ -75,7 +75,7 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         address tokenOut = token == _token0 ? _token0 : _token1;
         address tokenIn = tokenOut == _token0 ? _token1 : _token0;
         IERC20(tokenOut).safeTransfer(address(receiver), amount);
-        // The fee takes into consideration the amount given to the receipient
+        // The fee takes into consideration the amount given to the recipient
         uint256 AmountIn = _flashFee(token, amount);
         require(
             receiver.onFlashLoan(msg.sender, token, amount, AmountIn, data) ==
@@ -261,11 +261,11 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
     }
 
     function _flashFee(address token, uint256 amount) internal view returns (uint256) {
+        (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); 
         if (token == token0) {
-            //fix this to make more sense in terms of ratio TODO
-            return (amount * FLASH_FEE) / 10000;
+            return ((amount * _reserve1) / (_reserve0)) + FLASH_FEE;
         } else {
-            return (amount * FLASH_FEE) / 10;
+            return ((amount * _reserve0) / (_reserve1)) + FLASH_FEE;
         }
     }
     
