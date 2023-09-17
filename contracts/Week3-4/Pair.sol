@@ -56,17 +56,6 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         token1 = _token1;
     }
 
-    function getReserves() public view returns (uint112 _reserve0, uint112 _reserve1, uint32 _blockTimestampLast) {
-        _reserve0 = reserve0;
-        _reserve1 = reserve1;
-        _blockTimestampLast = blockTimestampLast;
-    }
-
-    // force reserves to match balances
-    function sync() public nonReentrant {
-        _update(IERC20(token0).balanceOf(address(this)), IERC20(token1).balanceOf(address(this)), reserve0, reserve1);
-    }
-
     /// @dev An ERC3156 based implementation of a flash swap. The difference between a normal swap is that instead
     /// of giving the token they are are trying to swap before the swap its performed in the callback function
     /// as `payment` for the loaned token.
@@ -106,25 +95,21 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         return true;
     }
 
+    /// @dev Returns the maximun amount of tokens to loan.
+    /// @param token token to check.
     function maxFlashLoan(address token) external view override returns (uint256) {
         return IERC20(token).balanceOf(address(this));
     }
 
+    /// @dev Returns the amount of tokens the user must transfer to repay the loan.
+    /// @param token token to check.
+    /// @param amount amount loaned.
     function flashFee(address token, uint256 amount) external view returns (uint256) {
         require(token == token0 || token == token1, "Unsupported currency");
         return _flashFee(token, amount);
     }
 
-    function _flashFee(address token, uint256 amount) internal view returns (uint256) {
-        if (token == token0) {
-            //fix this to make more sense in terms of ratio TODO
-            return (amount * FLASH_FEE) / 10000;
-        } else {
-            return (amount * FLASH_FEE) / 10;
-        }
-    }
-
-    // update reserves and, on the first call per block, price accumulators
+    /// @dev update reserves and, on the first call per block, price accumulators.
     function _update(uint256 balance0, uint256 balance1, uint112 _reserve0, uint112 _reserve1) private {
         require(balance0 <= type(uint112).max && balance1 <= type(uint112).max, "OVERFLOW");
         uint32 blockTimestamp = uint32(block.timestamp % 2 ** 32);
@@ -166,29 +151,7 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         emit Sync(reserve0, reserve1);
     }
 
-    // if fee is on, mint liquidity equivalent to 1/6th of the growth in sqrt(k)
-    function _mintFee(uint112 _reserve0, uint112 _reserve1) private returns (bool feeOn) {
-        address feeTo = IFactory(factory).feeTo();
-        feeOn = feeTo != address(0);
-        uint256 _kLast = kLast; // gas savings
-        if (feeOn) {
-            if (_kLast != 0) {
-                uint256 rootK = Math.sqrt(uint(_reserve0) * _reserve1);
-                uint256 rootKLast = Math.sqrt(_kLast);
-                if (rootK > rootKLast) {
-                    uint256 root = rootK - rootKLast;
-                    uint256 numerator = totalSupply() * root;
-                    uint256 denominator = rootK * 5 + rootKLast;
-                    uint256 liquidity = numerator / denominator;
-                    if (liquidity > 0) _mint(feeTo, liquidity);
-                }
-            }
-        } else if (_kLast != 0) {
-            kLast = 0;
-        }
-    }
-
-    // this low-level function should be called from a contract which performs important safety checks
+    /// @dev this low-level function should be called from a contract which performs important safety checks.
     function mint(address to) external nonReentrant returns (uint256 liquidity) {
         (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); // gas savings
         uint256 balance0 = IERC20(token0).balanceOf(address(this));
@@ -213,7 +176,8 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         if (feeOn) kLast = reserve0 * reserve1; // reserve0 and reserve1 are up-to-date
     }
 
-    // this low-level function should be called from a contract which performs important safety checks
+    /// @dev this low-level function should be called from a contract which performs important safety checks.
+    /// @param to owner of tokens.
     function burn(address to) external nonReentrant returns (uint256 amount0, uint256 amount1) {
         (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); // gas savings
         address _token0 = token0; // gas savings
@@ -237,7 +201,11 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         if (feeOn) kLast = uint(reserve0) * reserve1; // reserve0 and reserve1 are up-to-date
     }
 
-    // this low-level function should be called from a contract which performs important safety checks
+    /// @dev this low-level function should be called from a contract which performs important safety checks.
+    /// @param amount0Out amount of token0 that to receives.
+    /// @param amount1Out amount of token1 that to receives.
+    /// @param to recipeint of tokens.
+    /// @param data A data parameter to be passed on to the `receiver` for any custom use.
     function swap(uint256 amount0Out, uint256 amount1Out, address to, bytes calldata data) external nonReentrant {
         require(amount0Out > 0 || amount1Out > 0, "INSUFFICIENT_OUTPUT_AMOUNT");
         (uint112 _reserve0, uint112 _reserve1, ) = getReserves(); // gas savings
@@ -271,11 +239,57 @@ contract Pair is IPair, MyPairedToken, ReentrancyGuard, IERC3156FlashLender {
         emit Swap(msg.sender, amount0In, amount1In, amount0Out, amount1Out, to);
     }
 
-    // force balances to match reserves
+    /// @dev force balances to match reserves.
+    /// @param to receiver of extra balance.
     function skim(address to) external nonReentrant {
         address _token0 = token0; // gas savings
         address _token1 = token1; // gas savings
         IERC20(_token0).safeTransfer(to, IERC20(_token0).balanceOf(address(this)) - reserve0);
         IERC20(_token1).safeTransfer(to, IERC20(_token1).balanceOf(address(this)) - reserve1);
+    }
+
+    /// @dev Returns the reserve amounts for each token and the last block timestamp from last update.
+    function getReserves() public view returns (uint112 _reserve0, uint112 _reserve1, uint32 _blockTimestampLast) {
+        _reserve0 = reserve0;
+        _reserve1 = reserve1;
+        _blockTimestampLast = blockTimestampLast;
+    }
+
+    /// @dev force reserves to match balances.
+    function sync() public nonReentrant {
+        _update(IERC20(token0).balanceOf(address(this)), IERC20(token1).balanceOf(address(this)), reserve0, reserve1);
+    }
+
+    function _flashFee(address token, uint256 amount) internal view returns (uint256) {
+        if (token == token0) {
+            //fix this to make more sense in terms of ratio TODO
+            return (amount * FLASH_FEE) / 10000;
+        } else {
+            return (amount * FLASH_FEE) / 10;
+        }
+    }
+    
+    /// @dev if fee is on, mint liquidity equivalent to 1/6th of the growth in sqrt(k)
+    /// @param _reserve0 balance of token0.
+    /// @param _reserve1 balance of token1.
+    function _mintFee(uint112 _reserve0, uint112 _reserve1) private returns (bool feeOn) {
+        address feeTo = IFactory(factory).feeTo();
+        feeOn = feeTo != address(0);
+        uint256 _kLast = kLast; // gas savings
+        if (feeOn) {
+            if (_kLast != 0) {
+                uint256 rootK = Math.sqrt(uint(_reserve0) * _reserve1);
+                uint256 rootKLast = Math.sqrt(_kLast);
+                if (rootK > rootKLast) {
+                    uint256 root = rootK - rootKLast;
+                    uint256 numerator = totalSupply() * root;
+                    uint256 denominator = rootK * 5 + rootKLast;
+                    uint256 liquidity = numerator / denominator;
+                    if (liquidity > 0) _mint(feeTo, liquidity);
+                }
+            }
+        } else if (_kLast != 0) {
+            kLast = 0;
+        }
     }
 }

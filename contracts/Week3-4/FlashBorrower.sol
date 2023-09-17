@@ -5,6 +5,7 @@ import {IERC3156FlashBorrower} from "./interfaces/IERC3156FlashBorrower.sol";
 import {IERC3156FlashLender} from "./interfaces/IERC3156FlashLender.sol";
 import {Pair} from "./Pair.sol";
 
+/// This was taken from the ERC specs. See https://eips.ethereum.org/EIPS/eip-3156 for reference.
 contract FlashBorrower is IERC3156FlashBorrower {
     enum Action {
         NORMAL,

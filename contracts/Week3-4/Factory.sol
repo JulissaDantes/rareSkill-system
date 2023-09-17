@@ -13,8 +13,6 @@ contract Factory is IFactory {
 
     mapping(address => mapping(address => address)) public getPair;
 
-    //event PairCreated(address indexed tokenA, address indexed tokenB, address pair, uint);
-
     constructor(address _feeToSetter) {
         feeToSetter = _feeToSetter;
     }
@@ -38,11 +36,15 @@ contract Factory is IFactory {
         emit PairCreated(tokenA, tokenB, pair);
     }
 
+    /// @dev Update the address of user that collects the fee
+    /// @param _feeTo address receiving the fees
     function setFeeTo(address _feeTo) external {
         require(msg.sender == feeToSetter, "FORBIDDEN");
         feeTo = _feeTo;
     }
 
+    /// @dev Update the address of the feeTo setter. Caller must be past feeToSetter
+    /// @param _feeToSetter address of the new feeTo setter
     function setFeeToSetter(address _feeToSetter) external {
         require(msg.sender == feeToSetter, "FORBIDDEN");
         feeToSetter = _feeToSetter;
