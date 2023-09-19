@@ -16,7 +16,7 @@ async function addLiquidity(minLiquidity, instance, other1, tokenA, tokenB) {
     return [token0Amount, token1Amount];
 }
 
-describe.only("Pair", function () {
+describe("Pair", function () {
     let owner, other1, other2;
     let instance: Contract, factory;
     let tokenA: Contract;
