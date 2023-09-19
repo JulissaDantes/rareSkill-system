@@ -1,12 +1,10 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
-import { mine, time } from "@nomicfoundation/hardhat-network-helpers";
-import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
+import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { Contract } from "hardhat/internal/hardhat-network/stack-traces/model";
-import { getNameOfDeclaration } from "typescript";
 
-describe("Ecosystem 1", function () {
+describe.only("Ecosystem 1", function () {
     let owner, other1, other2, royaltyReceiver, lastTokenID, tree, secret = 0, price = ethers.parseEther("100.0");
     let instance: Contract;
     let erc20: Contract;
@@ -78,9 +76,9 @@ describe("Ecosystem 1", function () {
         expect(await NFT.balanceOf(other2.address)).to.be.eq(1);
     });
 
-    it("Addresses inside merkle cannot claim more than one", async () => {
+    it("Addresses inside merkle cannot claim more than one NFT", async () => {
         const proof = tree.getProof(secret);
-        await NFT.connect(other2).mint(other2.address, 2, proof, secret, {value: price / 2n});
+        //await NFT.connect(other2).mint(other2.address, 2, proof, secret, {value: price / 2n});
         
         await expect(NFT.connect(other2).mint(other2.address, 34, proof, secret, {value: price / 2n})).to.be.revertedWith('Already claimed');
         

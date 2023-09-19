@@ -5,3 +5,7 @@ artifacts
 cache
 typechain-types
 bin
+coverage
+coverage.json
+cache_forge
+out
