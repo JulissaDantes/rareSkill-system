@@ -1,0 +1,3052 @@
+Mutation testing report:
+Number of mutations:    277
+Killed:                 35 / 277
+
+Mutations:
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/ERC20.sol
+    Line nr: 11
+    Result: Killed
+    Original line:
+                 _mint(to, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/ERC20.sol
+    Line nr: 15
+    Result: Lived
+    Original line:
+                 _burn(from, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/ERC20.sol
+    Line nr: 10
+    Result: Lived
+    Original line:
+             function mint(address to, uint256 amount) external onlyOwner {
+
+    Mutated line:
+             function mint(address to, uint256 amount) external  {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/ERC20.sol
+    Line nr: 14
+    Result: Lived
+    Original line:
+             function burn(address from, uint256 amount) external onlyOwner {
+
+    Mutated line:
+             function burn(address from, uint256 amount) external  {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 199
+    Result: Lived
+    Original line:
+                 require(currentAllowance >= subtractedValue, "ERC20: decreased allowance below zero");
+
+    Mutated line:
+                 require(currentAllowance < subtractedValue, "ERC20: decreased allowance below zero");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 222
+    Result: Lived
+    Original line:
+                 require(from != address(0), "ERC20: transfer from the zero address");
+
+    Mutated line:
+                 require(from == address(0), "ERC20: transfer from the zero address");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 223
+    Result: Lived
+    Original line:
+                 require(to != address(0), "ERC20: transfer to the zero address");
+
+    Mutated line:
+                 require(to == address(0), "ERC20: transfer to the zero address");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 228
+    Result: Lived
+    Original line:
+                 require(fromBalance >= amount, "ERC20: transfer amount exceeds balance");
+
+    Mutated line:
+                 require(fromBalance < amount, "ERC20: transfer amount exceeds balance");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 251
+    Result: Killed
+    Original line:
+                 require(account != address(0), "ERC20: mint to the zero address");
+
+    Mutated line:
+                 require(account == address(0), "ERC20: mint to the zero address");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 277
+    Result: Lived
+    Original line:
+                 require(account != address(0), "ERC20: burn from the zero address");
+
+    Mutated line:
+                 require(account == address(0), "ERC20: burn from the zero address");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 282
+    Result: Lived
+    Original line:
+                 require(accountBalance >= amount, "ERC20: burn amount exceeds balance");
+
+    Mutated line:
+                 require(accountBalance < amount, "ERC20: burn amount exceeds balance");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 308
+    Result: Lived
+    Original line:
+                 require(owner != address(0), "ERC20: approve from the zero address");
+
+    Mutated line:
+                 require(owner == address(0), "ERC20: approve from the zero address");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 309
+    Result: Lived
+    Original line:
+                 require(spender != address(0), "ERC20: approve to the zero address");
+
+    Mutated line:
+                 require(spender == address(0), "ERC20: approve to the zero address");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 325
+    Result: Lived
+    Original line:
+                 if (currentAllowance != type(uint256).max) {
+
+    Mutated line:
+                 if (currentAllowance == type(uint256).max) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 326
+    Result: Lived
+    Original line:
+                     require(currentAllowance >= amount, "ERC20: insufficient allowance");
+
+    Mutated line:
+                     require(currentAllowance < amount, "ERC20: insufficient allowance");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 178
+    Result: Lived
+    Original line:
+                 _approve(owner, spender, allowance(owner, spender) + addedValue);
+
+    Mutated line:
+                 _approve(owner, spender, allowance(owner, spender) - addedValue);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 201
+    Result: Lived
+    Original line:
+                     _approve(owner, spender, currentAllowance - subtractedValue);
+
+    Mutated line:
+                     _approve(owner, spender, currentAllowance + subtractedValue);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 230
+    Result: Lived
+    Original line:
+                     _balances[from] = fromBalance - amount;
+
+    Mutated line:
+                     _balances[from] = fromBalance + amount;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 284
+    Result: Lived
+    Original line:
+                     _balances[account] = accountBalance - amount;
+
+    Mutated line:
+                     _balances[account] = accountBalance + amount;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 328
+    Result: Lived
+    Original line:
+                         _approve(owner, spender, currentAllowance - amount);
+
+    Mutated line:
+                         _approve(owner, spender, currentAllowance + amount);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 233
+    Result: Lived
+    Original line:
+                     _balances[to] += amount;
+
+    Mutated line:
+                     _balances[to] -= amount;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 255
+    Result: Killed
+    Original line:
+                 _totalSupply += amount;
+
+    Mutated line:
+                 _totalSupply -= amount;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 258
+    Result: Lived
+    Original line:
+                     _balances[account] += amount;
+
+    Mutated line:
+                     _balances[account] -= amount;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 286
+    Result: Lived
+    Original line:
+                     _totalSupply -= amount;
+
+    Mutated line:
+                     _totalSupply += amount;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 114
+    Result: Lived
+    Original line:
+                 _transfer(owner, to, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 137
+    Result: Lived
+    Original line:
+                 _approve(owner, spender, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 159
+    Result: Lived
+    Original line:
+                 _spendAllowance(from, spender, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 160
+    Result: Lived
+    Original line:
+                 _transfer(from, to, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 178
+    Result: Lived
+    Original line:
+                 _approve(owner, spender, allowance(owner, spender) + addedValue);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 201
+    Result: Lived
+    Original line:
+                     _approve(owner, spender, currentAllowance - subtractedValue);
+
+    Mutated line:
+                     
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 225
+    Result: Lived
+    Original line:
+                 _beforeTokenTransfer(from, to, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 238
+    Result: Lived
+    Original line:
+                 _afterTokenTransfer(from, to, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 253
+    Result: Lived
+    Original line:
+                 _beforeTokenTransfer(address(0), account, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 262
+    Result: Lived
+    Original line:
+                 _afterTokenTransfer(address(0), account, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 279
+    Result: Lived
+    Original line:
+                 _beforeTokenTransfer(account, address(0), amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 291
+    Result: Lived
+    Original line:
+                 _afterTokenTransfer(account, address(0), amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 325
+    Result: Error
+    Original line:
+                 if (currentAllowance != type(uint256).max) {
+
+    Mutated line:
+                 if (currentAllowance != max) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol
+    Line nr: 328
+    Result: Lived
+    Original line:
+                         _approve(owner, spender, currentAllowance - amount);
+
+    Mutated line:
+                         
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 53
+    Result: Lived
+    Original line:
+                     interfaceId == type(IERC721).interfaceId ||
+
+    Mutated line:
+                     interfaceId != type(IERC721).interfaceId ||
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 54
+    Result: Lived
+    Original line:
+                     interfaceId == type(IERC721Metadata).interfaceId ||
+
+    Mutated line:
+                     interfaceId != type(IERC721Metadata).interfaceId ||
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 96
+    Result: Lived
+    Original line:
+                 return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
+
+    Mutated line:
+                 return bytes(baseURI).length >= 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 117
+    Result: Killed
+    Original line:
+                     _msgSender() == owner || isApprovedForAll(owner, _msgSender()),
+
+    Mutated line:
+                     _msgSender() != owner || isApprovedForAll(owner, _msgSender()),
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 223
+    Result: Killed
+    Original line:
+                 return (spender == owner || isApprovedForAll(owner, spender) || getApproved(tokenId) == spender);
+
+    Mutated line:
+                 return (spender != owner || isApprovedForAll(owner, spender) || getApproved(tokenId) == spender);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 223
+    Result: Lived
+    Original line:
+                 return (spender == owner || isApprovedForAll(owner, spender) || getApproved(tokenId) == spender);
+
+    Mutated line:
+                 return (spender == owner || isApprovedForAll(owner, spender) || getApproved(tokenId) != spender);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 334
+    Result: Killed
+    Original line:
+                 require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
+
+    Mutated line:
+                 require(ERC721.ownerOf(tokenId) != from, "ERC721: transfer from incorrect owner");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 340
+    Result: Killed
+    Original line:
+                 require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
+
+    Mutated line:
+                 require(ERC721.ownerOf(tokenId) != from, "ERC721: transfer from incorrect owner");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 407
+    Result: Killed
+    Original line:
+                         return retval == IERC721Receiver.onERC721Received.selector;
+
+    Mutated line:
+                         return retval != IERC721Receiver.onERC721Received.selector;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 409
+    Result: Lived
+    Original line:
+                         if (reason.length == 0) {
+
+    Mutated line:
+                         if (reason.length != 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 53
+    Result: Lived
+    Original line:
+                     interfaceId == type(IERC721).interfaceId ||
+
+    Mutated line:
+                     interfaceId != type(IERC721).interfaceId ||
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 54
+    Result: Lived
+    Original line:
+                     interfaceId == type(IERC721Metadata).interfaceId ||
+
+    Mutated line:
+                     interfaceId != type(IERC721Metadata).interfaceId ||
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 62
+    Result: Lived
+    Original line:
+                 require(owner != address(0), "ERC721: address zero is not a valid owner");
+
+    Mutated line:
+                 require(owner == address(0), "ERC721: address zero is not a valid owner");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 71
+    Result: Killed
+    Original line:
+                 require(owner != address(0), "ERC721: invalid token ID");
+
+    Mutated line:
+                 require(owner == address(0), "ERC721: invalid token ID");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 96
+    Result: Lived
+    Original line:
+                 return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
+
+    Mutated line:
+                 return bytes(baseURI).length <= 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 114
+    Result: Killed
+    Original line:
+                 require(to != owner, "ERC721: approval to current owner");
+
+    Mutated line:
+                 require(to == owner, "ERC721: approval to current owner");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 117
+    Result: Killed
+    Original line:
+                     _msgSender() == owner || isApprovedForAll(owner, _msgSender()),
+
+    Mutated line:
+                     _msgSender() != owner || isApprovedForAll(owner, _msgSender()),
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 211
+    Result: Killed
+    Original line:
+                 return _ownerOf(tokenId) != address(0);
+
+    Mutated line:
+                 return _ownerOf(tokenId) == address(0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 223
+    Result: Killed
+    Original line:
+                 return (spender == owner || isApprovedForAll(owner, spender) || getApproved(tokenId) == spender);
+
+    Mutated line:
+                 return (spender != owner || isApprovedForAll(owner, spender) || getApproved(tokenId) == spender);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 223
+    Result: Lived
+    Original line:
+                 return (spender == owner || isApprovedForAll(owner, spender) || getApproved(tokenId) == spender);
+
+    Mutated line:
+                 return (spender == owner || isApprovedForAll(owner, spender) || getApproved(tokenId) != spender);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 265
+    Result: Killed
+    Original line:
+                 require(to != address(0), "ERC721: mint to the zero address");
+
+    Mutated line:
+                 require(to == address(0), "ERC721: mint to the zero address");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 334
+    Result: Killed
+    Original line:
+                 require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
+
+    Mutated line:
+                 require(ERC721.ownerOf(tokenId) != from, "ERC721: transfer from incorrect owner");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 335
+    Result: Killed
+    Original line:
+                 require(to != address(0), "ERC721: transfer to the zero address");
+
+    Mutated line:
+                 require(to == address(0), "ERC721: transfer to the zero address");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 340
+    Result: Killed
+    Original line:
+                 require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
+
+    Mutated line:
+                 require(ERC721.ownerOf(tokenId) != from, "ERC721: transfer from incorrect owner");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 377
+    Result: Lived
+    Original line:
+                 require(owner != operator, "ERC721: approve to caller");
+
+    Mutated line:
+                 require(owner == operator, "ERC721: approve to caller");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 407
+    Result: Killed
+    Original line:
+                         return retval == IERC721Receiver.onERC721Received.selector;
+
+    Mutated line:
+                         return retval != IERC721Receiver.onERC721Received.selector;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 409
+    Result: Lived
+    Original line:
+                         if (reason.length == 0) {
+
+    Mutated line:
+                         if (reason.length != 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 278
+    Result: Lived
+    Original line:
+                     _balances[to] += 1;
+
+    Mutated line:
+                     _balances[to] -= 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 313
+    Result: Lived
+    Original line:
+                     _balances[owner] -= 1;
+
+    Mutated line:
+                     _balances[owner] += 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 351
+    Result: Lived
+    Original line:
+                     _balances[from] -= 1;
+
+    Mutated line:
+                     _balances[from] += 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 352
+    Result: Lived
+    Original line:
+                     _balances[to] += 1;
+
+    Mutated line:
+                     _balances[to] -= 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 464
+    Result: Lived
+    Original line:
+                 _balances[account] += amount;
+
+    Mutated line:
+                 _balances[account] -= amount;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 53
+    Result: Lived
+    Original line:
+                     interfaceId == type(IERC721).interfaceId ||
+
+    Mutated line:
+                     interfaceId == interfaceId ||
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 54
+    Result: Lived
+    Original line:
+                     interfaceId == type(IERC721Metadata).interfaceId ||
+
+    Mutated line:
+                     interfaceId == interfaceId ||
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 121
+    Result: Lived
+    Original line:
+                 _approve(to, tokenId);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 137
+    Result: Lived
+    Original line:
+                 _setApprovalForAll(_msgSender(), operator, approved);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 154
+    Result: Lived
+    Original line:
+                 _transfer(from, to, tokenId);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 161
+    Result: Killed
+    Original line:
+                 safeTransferFrom(from, to, tokenId, "");
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 169
+    Result: Killed
+    Original line:
+                 _safeTransfer(from, to, tokenId, data);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 191
+    Result: Killed
+    Original line:
+                 _transfer(from, to, tokenId);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 237
+    Result: Lived
+    Original line:
+                 _safeMint(to, tokenId, "");
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 245
+    Result: Lived
+    Original line:
+                 _mint(to, tokenId);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 268
+    Result: Lived
+    Original line:
+                 _beforeTokenTransfer(address(0), to, tokenId, 1);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 285
+    Result: Lived
+    Original line:
+                 _afterTokenTransfer(address(0), to, tokenId, 1);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 302
+    Result: Lived
+    Original line:
+                 _beforeTokenTransfer(owner, address(0), tokenId, 1);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 319
+    Result: Lived
+    Original line:
+                 _afterTokenTransfer(owner, address(0), tokenId, 1);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 337
+    Result: Lived
+    Original line:
+                 _beforeTokenTransfer(from, to, tokenId, 1);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 358
+    Result: Lived
+    Original line:
+                 _afterTokenTransfer(from, to, tokenId, 1);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol
+    Line nr: 410
+    Result: Lived
+    Original line:
+                             revert("ERC721: transfer to non ERC721Receiver implementer");
+
+    Mutated line:
+                             
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 38
+    Result: Killed
+    Original line:
+                 require(totalSupply < MAX_SUPPLY, "Max supply reached already");
+
+    Mutated line:
+                 require(totalSupply <= MAX_SUPPLY, "Max supply reached already");
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 38
+    Result: Killed
+    Original line:
+                 require(totalSupply < MAX_SUPPLY, "Max supply reached already");
+
+    Mutated line:
+                 require(totalSupply >= MAX_SUPPLY, "Max supply reached already");
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 49
+    Result: Killed
+    Original line:
+                 require(discount ? msg.value >= price / 2 : msg.value >= price, "Invalid amount sent");
+
+    Mutated line:
+                 require(discount ? msg.value >= price / 2 : msg.value < price, "Invalid amount sent");
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 49
+    Result: Killed
+    Original line:
+                 require(discount ? msg.value >= price / 2 : msg.value >= price, "Invalid amount sent");
+
+    Mutated line:
+                 require(discount ? msg.value < price / 2 : msg.value >= price, "Invalid amount sent");
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 49
+    Result: Killed
+    Original line:
+                 require(discount ? msg.value >= price / 2 : msg.value >= price, "Invalid amount sent");
+
+    Mutated line:
+                 require(discount ? msg.value >= price * 2 : msg.value >= price, "Invalid amount sent");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 50
+    Result: Lived
+    Original line:
+                 (address receiver, uint256 royalty) = royaltyInfo(totalSupply, discount ? price / 2 : price);
+
+    Mutated line:
+                 (address receiver, uint256 royalty) = royaltyInfo(totalSupply, discount ? price * 2 : price);
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 22
+    Result: Killed
+    Original line:
+                 _setDefaultRoyalty(receiver, 25);
+
+    Mutated line:
+                 
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 53
+    Result: Killed
+    Original line:
+                 _mint(to, tokenId);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 21
+    Result: Lived
+    Original line:
+             constructor(bytes32 _merkleRoot, uint256 _price, address receiver) ERC721Royalty() ERC721("MFT", "NFT") {
+
+    Mutated line:
+             constructor(bytes32 _merkleRoot, uint256 _price, address receiver)  ERC721("MFT", "NFT") {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 21
+    Result: Error
+    Original line:
+             constructor(bytes32 _merkleRoot, uint256 _price, address receiver) ERC721Royalty() ERC721("MFT", "NFT") {
+
+    Mutated line:
+             constructor(bytes32 _merkleRoot, uint256 _price, address receiver) ERC721Royalty()  {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/NFT.sol
+    Line nr: 27
+    Result: Lived
+    Original line:
+             function withdrawFunds() external onlyOwner {
+
+    Mutated line:
+             function withdrawFunds() external  {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 19
+    Result: Lived
+    Original line:
+                 return a > b ? a : b;
+
+    Mutated line:
+                 return a >= b ? a : b;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 26
+    Result: Lived
+    Original line:
+                 return a < b ? a : b;
+
+    Mutated line:
+                 return a <= b ? a : b;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 46
+    Result: Lived
+    Original line:
+                 return a == 0 ? 0 : (a - 1) / b + 1;
+
+    Mutated line:
+                 return a != 0 ? 0 : (a - 1) / b + 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 68
+    Result: Lived
+    Original line:
+                     if (prod1 == 0) {
+
+    Mutated line:
+                     if (prod1 != 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 76
+    Result: Lived
+    Original line:
+                     require(denominator > prod1, "Math: mulDiv overflow");
+
+    Mutated line:
+                     require(denominator >= prod1, "Math: mulDiv overflow");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 140
+    Result: Lived
+    Original line:
+                 if (rounding == Rounding.Up && mulmod(x, y, denominator) > 0) {
+
+    Mutated line:
+                 if (rounding != Rounding.Up && mulmod(x, y, denominator) > 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 140
+    Result: Lived
+    Original line:
+                 if (rounding == Rounding.Up && mulmod(x, y, denominator) > 0) {
+
+    Mutated line:
+                 if (rounding == Rounding.Up && mulmod(x, y, denominator) >= 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 152
+    Result: Lived
+    Original line:
+                 if (a == 0) {
+
+    Mutated line:
+                 if (a != 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 190
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && result * result < a ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding ==  != ding.Up && result * result < a ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 190
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && result * result < a ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && result * result < a <= 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 201
+    Result: Error
+    Original line:
+                     if (value >> 128 > 0) {
+
+    Mutated line:
+                     if (value >> 128 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 205
+    Result: Error
+    Original line:
+                     if (value >> 64 > 0) {
+
+    Mutated line:
+                     if (value >> 64 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 209
+    Result: Error
+    Original line:
+                     if (value >> 32 > 0) {
+
+    Mutated line:
+                     if (value >> 32 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 213
+    Result: Error
+    Original line:
+                     if (value >> 16 > 0) {
+
+    Mutated line:
+                     if (value >> 16 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 217
+    Result: Error
+    Original line:
+                     if (value >> 8 > 0) {
+
+    Mutated line:
+                     if (value >> 8 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 221
+    Result: Error
+    Original line:
+                     if (value >> 4 > 0) {
+
+    Mutated line:
+                     if (value >> 4 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 225
+    Result: Error
+    Original line:
+                     if (value >> 2 > 0) {
+
+    Mutated line:
+                     if (value >> 2 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 229
+    Result: Error
+    Original line:
+                     if (value >> 1 > 0) {
+
+    Mutated line:
+                     if (value >> 1 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 243
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding ==  != ding.Up && 1 << result < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 243
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && 1 << result < v <= e ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 292
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 10 ** result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding ==  != ding.Up && 10 ** result < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 292
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 10 ** result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && 10 ** result < v <= e ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 305
+    Result: Error
+    Original line:
+                     if (value >> 128 > 0) {
+
+    Mutated line:
+                     if (value >> 128 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 309
+    Result: Error
+    Original line:
+                     if (value >> 64 > 0) {
+
+    Mutated line:
+                     if (value >> 64 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 313
+    Result: Error
+    Original line:
+                     if (value >> 32 > 0) {
+
+    Mutated line:
+                     if (value >> 32 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 317
+    Result: Error
+    Original line:
+                     if (value >> 16 > 0) {
+
+    Mutated line:
+                     if (value >> 16 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 321
+    Result: Error
+    Original line:
+                     if (value >> 8 > 0) {
+
+    Mutated line:
+                     if (value >> 8 > 0 >= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 335
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << (result << 3) < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding ==  != ding.Up && 1 << (result << 3) < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 335
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << (result << 3) < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && 1 << (result << 3) < v <= e ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 19
+    Result: Lived
+    Original line:
+                 return a > b ? a : b;
+
+    Mutated line:
+                 return a <= b ? a : b;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 26
+    Result: Lived
+    Original line:
+                 return a < b ? a : b;
+
+    Mutated line:
+                 return a >= b ? a : b;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 46
+    Result: Lived
+    Original line:
+                 return a == 0 ? 0 : (a - 1) / b + 1;
+
+    Mutated line:
+                 return a != 0 ? 0 : (a - 1) / b + 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 68
+    Result: Lived
+    Original line:
+                     if (prod1 == 0) {
+
+    Mutated line:
+                     if (prod1 != 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 76
+    Result: Lived
+    Original line:
+                     require(denominator > prod1, "Math: mulDiv overflow");
+
+    Mutated line:
+                     require(denominator <= prod1, "Math: mulDiv overflow");
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 140
+    Result: Lived
+    Original line:
+                 if (rounding == Rounding.Up && mulmod(x, y, denominator) > 0) {
+
+    Mutated line:
+                 if (rounding != Rounding.Up && mulmod(x, y, denominator) > 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 140
+    Result: Lived
+    Original line:
+                 if (rounding == Rounding.Up && mulmod(x, y, denominator) > 0) {
+
+    Mutated line:
+                 if (rounding == Rounding.Up && mulmod(x, y, denominator) <= 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 152
+    Result: Lived
+    Original line:
+                 if (a == 0) {
+
+    Mutated line:
+                 if (a != 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 190
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && result * result < a ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding ==  != ding.Up && result * result < a ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 190
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && result * result < a ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && result * result < a >= 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 201
+    Result: Error
+    Original line:
+                     if (value >> 128 > 0) {
+
+    Mutated line:
+                     if (value >> 128 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 205
+    Result: Error
+    Original line:
+                     if (value >> 64 > 0) {
+
+    Mutated line:
+                     if (value >> 64 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 209
+    Result: Error
+    Original line:
+                     if (value >> 32 > 0) {
+
+    Mutated line:
+                     if (value >> 32 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 213
+    Result: Error
+    Original line:
+                     if (value >> 16 > 0) {
+
+    Mutated line:
+                     if (value >> 16 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 217
+    Result: Error
+    Original line:
+                     if (value >> 8 > 0) {
+
+    Mutated line:
+                     if (value >> 8 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 221
+    Result: Error
+    Original line:
+                     if (value >> 4 > 0) {
+
+    Mutated line:
+                     if (value >> 4 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 225
+    Result: Error
+    Original line:
+                     if (value >> 2 > 0) {
+
+    Mutated line:
+                     if (value >> 2 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 229
+    Result: Error
+    Original line:
+                     if (value >> 1 > 0) {
+
+    Mutated line:
+                     if (value >> 1 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 243
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding ==  != ding.Up && 1 << result < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 243
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && 1 << result < v >= e ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 254
+    Result: Error
+    Original line:
+                     if (value >= 10 ** 64) {
+
+    Mutated line:
+                     if (value >=  < * 64) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 258
+    Result: Error
+    Original line:
+                     if (value >= 10 ** 32) {
+
+    Mutated line:
+                     if (value >=  < * 32) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 262
+    Result: Error
+    Original line:
+                     if (value >= 10 ** 16) {
+
+    Mutated line:
+                     if (value >=  < * 16) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 266
+    Result: Error
+    Original line:
+                     if (value >= 10 ** 8) {
+
+    Mutated line:
+                     if (value >=  < * 8) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 270
+    Result: Error
+    Original line:
+                     if (value >= 10 ** 4) {
+
+    Mutated line:
+                     if (value >=  < * 4) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 274
+    Result: Error
+    Original line:
+                     if (value >= 10 ** 2) {
+
+    Mutated line:
+                     if (value >=  < * 2) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 278
+    Result: Error
+    Original line:
+                     if (value >= 10 ** 1) {
+
+    Mutated line:
+                     if (value >=  < * 1) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 292
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 10 ** result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding ==  != ding.Up && 10 ** result < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 292
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 10 ** result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && 10 ** result < v >= e ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 305
+    Result: Error
+    Original line:
+                     if (value >> 128 > 0) {
+
+    Mutated line:
+                     if (value >> 128 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 309
+    Result: Error
+    Original line:
+                     if (value >> 64 > 0) {
+
+    Mutated line:
+                     if (value >> 64 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 313
+    Result: Error
+    Original line:
+                     if (value >> 32 > 0) {
+
+    Mutated line:
+                     if (value >> 32 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 317
+    Result: Error
+    Original line:
+                     if (value >> 16 > 0) {
+
+    Mutated line:
+                     if (value >> 16 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 321
+    Result: Error
+    Original line:
+                     if (value >> 8 > 0) {
+
+    Mutated line:
+                     if (value >> 8 > 0 <= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 335
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << (result << 3) < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding ==  != ding.Up && 1 << (result << 3) < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 335
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << (result << 3) < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && 1 << (result << 3) < v >= e ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 35
+    Result: Lived
+    Original line:
+                 return (a & b) + (a ^ b) / 2;
+
+    Mutated line:
+                 return (a & b) - (a ^ b) / 2;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 35
+    Result: Lived
+    Original line:
+                 return (a & b) + (a ^ b) / 2;
+
+    Mutated line:
+                 return (a | b) + (a ^ b) / 2;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 35
+    Result: Lived
+    Original line:
+                 return (a & b) + (a ^ b) / 2;
+
+    Mutated line:
+                 return (a & b) + (a ^ b) * 2;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 35
+    Result: Lived
+    Original line:
+                 return (a & b) + (a ^ b) / 2;
+
+    Mutated line:
+                 return (a & b) + (a & b) / 2;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 46
+    Result: Lived
+    Original line:
+                 return a == 0 ? 0 : (a - 1) / b + 1;
+
+    Mutated line:
+                 return a == 0 ? 0 : (a - 1) / b - 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 46
+    Result: Lived
+    Original line:
+                 return a == 0 ? 0 : (a - 1) / b + 1;
+
+    Mutated line:
+                 return a == 0 ? 0 : (a - 1) * b + 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 46
+    Result: Lived
+    Original line:
+                 return a == 0 ? 0 : (a - 1) / b + 1;
+
+    Mutated line:
+                 return a == 0 ? 0 : (a + 1) / b + 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 72
+    Result: Lived
+    Original line:
+                         return prod0 / denominator;
+
+    Mutated line:
+                         return prod0 * denominator;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 97
+    Result: Lived
+    Original line:
+                     uint256 twos = denominator & (~denominator + 1);
+
+    Mutated line:
+                     uint256 twos = denominator | (~denominator + 1);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 97
+    Result: Lived
+    Original line:
+                     uint256 twos = denominator & (~denominator + 1);
+
+    Mutated line:
+                     uint256 twos = denominator & (~denominator - 1);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 110
+    Result: Lived
+    Original line:
+                     prod0 |= prod1 * twos;
+
+    Mutated line:
+                     prod0 |= prod1 / twos;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 115
+    Result: Lived
+    Original line:
+                     uint256 inverse = (3 * denominator) ^ 2;
+
+    Mutated line:
+                     uint256 inverse = (3 * denominator) & 2;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 115
+    Result: Lived
+    Original line:
+                     uint256 inverse = (3 * denominator) ^ 2;
+
+    Mutated line:
+                     uint256 inverse = (3 / denominator) ^ 2;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 119
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^8
+
+    Mutated line:
+                     inverse *= 2 + denominator * inverse; // inverse mod 2^8
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 119
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^8
+
+    Mutated line:
+                     inverse *= 2 - denominator / inverse; // inverse mod 2^8
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 120
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^16
+
+    Mutated line:
+                     inverse *= 2 + denominator * inverse; // inverse mod 2^16
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 120
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^16
+
+    Mutated line:
+                     inverse *= 2 - denominator / inverse; // inverse mod 2^16
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 121
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^32
+
+    Mutated line:
+                     inverse *= 2 + denominator * inverse; // inverse mod 2^32
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 121
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^32
+
+    Mutated line:
+                     inverse *= 2 - denominator / inverse; // inverse mod 2^32
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 122
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^64
+
+    Mutated line:
+                     inverse *= 2 + denominator * inverse; // inverse mod 2^64
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 122
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^64
+
+    Mutated line:
+                     inverse *= 2 - denominator / inverse; // inverse mod 2^64
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 123
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^128
+
+    Mutated line:
+                     inverse *= 2 + denominator * inverse; // inverse mod 2^128
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 123
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^128
+
+    Mutated line:
+                     inverse *= 2 - denominator / inverse; // inverse mod 2^128
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 124
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^256
+
+    Mutated line:
+                     inverse *= 2 + denominator * inverse; // inverse mod 2^256
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 124
+    Result: Lived
+    Original line:
+                     inverse *= 2 - denominator * inverse; // inverse mod 2^256
+
+    Mutated line:
+                     inverse *= 2 - denominator / inverse; // inverse mod 2^256
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 130
+    Result: Lived
+    Original line:
+                     result = prod0 * inverse;
+
+    Mutated line:
+                     result = prod0 / inverse;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 166
+    Result: Error
+    Original line:
+                 uint256 result = 1 << (log2(a) >> 1);
+
+    Mutated line:
+                 uint256 result = 1 <<  >> 2(a) >> 1);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 166
+    Result: Error
+    Original line:
+                 uint256 result = 1 << (log2(a) >> 1);
+
+    Mutated line:
+                 uint256 result = 1 << (log2(a) >>  << 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 173
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / result) >>  <<            result = (result + a / result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 173
+    Result: Lived
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a - result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 173
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / r * lt) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 174
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / result) >>  <<            result = (result + a / result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 174
+    Result: Lived
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a - result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 174
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / r * lt) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 175
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / result) >>  <<            result = (result + a / result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 175
+    Result: Lived
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a - result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 175
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / r * lt) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 176
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / result) >>  <<            result = (result + a / result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 176
+    Result: Lived
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a - result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 176
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / r * lt) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 177
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / result) >>  <<            result = (result + a / result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 177
+    Result: Lived
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a - result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 177
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / r * lt) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 178
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / result) >>  <<            result = (result + a / result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 178
+    Result: Lived
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a - result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 178
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / r * lt) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 179
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / result) >>  <<            return min(result, a / result);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 179
+    Result: Lived
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a - result) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 179
+    Result: Error
+    Original line:
+                     result = (result + a / result) >> 1;
+
+    Mutated line:
+                     result = (result + a / r * lt) >> 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 180
+    Result: Error
+    Original line:
+                     return min(result, a / result);
+
+    Mutated line:
+                     return min(result, a / r * lt);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 190
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && result * result < a ? 1 : 0);
+
+    Mutated line:
+                     return result + ( - nding == Rounding.Up && result * result < a ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 190
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && result * result < a ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && result * r / lt < a ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 201
+    Result: Error
+    Original line:
+                     if (value >> 128 > 0) {
+
+    Mutated line:
+                     if (value >>  << > 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 205
+    Result: Error
+    Original line:
+                     if (value >> 64 > 0) {
+
+    Mutated line:
+                     if (value >>  <<  0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 209
+    Result: Error
+    Original line:
+                     if (value >> 32 > 0) {
+
+    Mutated line:
+                     if (value >>  <<  0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 213
+    Result: Error
+    Original line:
+                     if (value >> 16 > 0) {
+
+    Mutated line:
+                     if (value >>  <<  0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 217
+    Result: Error
+    Original line:
+                     if (value >> 8 > 0) {
+
+    Mutated line:
+                     if (value >>  << 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 221
+    Result: Error
+    Original line:
+                     if (value >> 4 > 0) {
+
+    Mutated line:
+                     if (value >>  << 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 225
+    Result: Error
+    Original line:
+                     if (value >> 2 > 0) {
+
+    Mutated line:
+                     if (value >>  << 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 229
+    Result: Error
+    Original line:
+                     if (value >> 1 > 0) {
+
+    Mutated line:
+                     if (value >>  << 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 243
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + ( - nding == Rounding.Up && 1 << result < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 243
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && 1 <<  >> lt < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 292
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 10 ** result < value ? 1 : 0);
+
+    Mutated line:
+                     return result + ( - nding == Rounding.Up && 10 ** result < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 305
+    Result: Error
+    Original line:
+                     if (value >> 128 > 0) {
+
+    Mutated line:
+                     if (value >>  << > 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 309
+    Result: Error
+    Original line:
+                     if (value >> 64 > 0) {
+
+    Mutated line:
+                     if (value >>  <<  0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 313
+    Result: Error
+    Original line:
+                     if (value >> 32 > 0) {
+
+    Mutated line:
+                     if (value >>  <<  0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 317
+    Result: Error
+    Original line:
+                     if (value >> 16 > 0) {
+
+    Mutated line:
+                     if (value >>  <<  0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 321
+    Result: Error
+    Original line:
+                     if (value >> 8 > 0) {
+
+    Mutated line:
+                     if (value >>  << 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 335
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << (result << 3) < value ? 1 : 0);
+
+    Mutated line:
+                     return result + ( - nding == Rounding.Up && 1 << (result << 3) < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 335
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << (result << 3) < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && 1 <<  >> ult << 3) < value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 335
+    Result: Error
+    Original line:
+                     return result + (rounding == Rounding.Up && 1 << (result << 3) < value ? 1 : 0);
+
+    Mutated line:
+                     return result + (rounding == Rounding.Up && 1 << (result <<  >>  value ? 1 : 0);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 141
+    Result: Lived
+    Original line:
+                     result += 1;
+
+    Mutated line:
+                     result -= 1;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 203
+    Result: Error
+    Original line:
+                         result += 128;
+
+    Mutated line:
+                         result +=  -= 
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 207
+    Result: Error
+    Original line:
+                         result += 64;
+
+    Mutated line:
+                         result +=  -=             }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 211
+    Result: Error
+    Original line:
+                         result += 32;
+
+    Mutated line:
+                         result +=  -=             }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 215
+    Result: Error
+    Original line:
+                         result += 16;
+
+    Mutated line:
+                         result +=  -=             }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 219
+    Result: Error
+    Original line:
+                         result += 8;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 223
+    Result: Error
+    Original line:
+                         result += 4;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 227
+    Result: Error
+    Original line:
+                         result += 2;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 230
+    Result: Error
+    Original line:
+                         result += 1;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 256
+    Result: Error
+    Original line:
+                         result += 64;
+
+    Mutated line:
+                         result +=  -=             }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 260
+    Result: Error
+    Original line:
+                         result += 32;
+
+    Mutated line:
+                         result +=  -=             }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 264
+    Result: Error
+    Original line:
+                         result += 16;
+
+    Mutated line:
+                         result +=  -=             }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 268
+    Result: Error
+    Original line:
+                         result += 8;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 272
+    Result: Error
+    Original line:
+                         result += 4;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 276
+    Result: Error
+    Original line:
+                         result += 2;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 279
+    Result: Error
+    Original line:
+                         result += 1;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 307
+    Result: Error
+    Original line:
+                         result += 16;
+
+    Mutated line:
+                         result +=  -=             }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 311
+    Result: Error
+    Original line:
+                         result += 8;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 315
+    Result: Error
+    Original line:
+                         result += 4;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 319
+    Result: Error
+    Original line:
+                         result += 2;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/@openzeppelin/contracts/utils/math/Math.sol
+    Line nr: 322
+    Result: Error
+    Original line:
+                         result += 1;
+
+    Mutated line:
+                         result +=  -=            }
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 25
+    Result: Lived
+    Original line:
+                 return interfaceId == type(IERC1363).interfaceId || super.supportsInterface(interfaceId);
+
+    Mutated line:
+                 return interfaceId != type(IERC1363).interfaceId || super.supportsInterface(interfaceId);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 124
+    Result: Lived
+    Original line:
+                     return retval == IERC1363Receiver.onTransferReceived.selector;
+
+    Mutated line:
+                     return retval != IERC1363Receiver.onTransferReceived.selector;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 126
+    Result: Lived
+    Original line:
+                     if (reason.length == 0) {
+
+    Mutated line:
+                     if (reason.length != 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 155
+    Result: Lived
+    Original line:
+                     return retval == IERC1363Spender.onApprovalReceived.selector;
+
+    Mutated line:
+                     return retval != IERC1363Spender.onApprovalReceived.selector;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 157
+    Result: Lived
+    Original line:
+                     if (reason.length == 0) {
+
+    Mutated line:
+                     if (reason.length != 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 25
+    Result: Lived
+    Original line:
+                 return interfaceId == type(IERC1363).interfaceId || super.supportsInterface(interfaceId);
+
+    Mutated line:
+                 return interfaceId != type(IERC1363).interfaceId || super.supportsInterface(interfaceId);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 124
+    Result: Lived
+    Original line:
+                     return retval == IERC1363Receiver.onTransferReceived.selector;
+
+    Mutated line:
+                     return retval != IERC1363Receiver.onTransferReceived.selector;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 126
+    Result: Lived
+    Original line:
+                     if (reason.length == 0) {
+
+    Mutated line:
+                     if (reason.length != 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 155
+    Result: Lived
+    Original line:
+                     return retval == IERC1363Spender.onApprovalReceived.selector;
+
+    Mutated line:
+                     return retval != IERC1363Spender.onApprovalReceived.selector;
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 157
+    Result: Lived
+    Original line:
+                     if (reason.length == 0) {
+
+    Mutated line:
+                     if (reason.length != 0) {
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 25
+    Result: Lived
+    Original line:
+                 return interfaceId == type(IERC1363).interfaceId || super.supportsInterface(interfaceId);
+
+    Mutated line:
+                 return interfaceId == interfaceId || super.supportsInterface(interfaceId);
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 120
+    Result: Lived
+    Original line:
+                     revert("ERC1363: transfer to non contract address");
+
+    Mutated line:
+                     
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 127
+    Result: Lived
+    Original line:
+                         revert("ERC1363: transfer to non ERC1363Receiver implementer");
+
+    Mutated line:
+                         
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 151
+    Result: Lived
+    Original line:
+                     revert("ERC1363: approve a non contract address");
+
+    Mutated line:
+                     
+
+
+Mutation:
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/node_modules/erc-payable-token/contracts/token/ERC1363/ERC1363.sol
+    Line nr: 158
+    Result: Lived
+    Original line:
+                         revert("ERC1363: approve a non ERC1363Spender implementer");
+
+    Mutated line:
+                         
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/StakeNFT.sol
+    Line nr: 35
+    Result: Killed
+    Original line:
+                 require(lastWithdraw[msg.sender] + withdrawalInterval <= block.timestamp, "Wait 24 hours");
+
+    Mutated line:
+                 require(lastWithdraw[msg.sender] + withdrawalInterval < block.timestamp, "Wait 24 hours");
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/StakeNFT.sol
+    Line nr: 43
+    Result: Killed
+    Original line:
+                 require(msg.sender == originalOwner[tokenId], "Not the original owner");
+
+    Mutated line:
+                 require(msg.sender != originalOwner[tokenId], "Not the original owner");
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/StakeNFT.sol
+    Line nr: 53
+    Result: Killed
+    Original line:
+                 require(msg.sender == address(nft), "Invalid NFT address");
+
+    Mutated line:
+                 require(msg.sender != address(nft), "Invalid NFT address");
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/StakeNFT.sol
+    Line nr: 35
+    Result: Killed
+    Original line:
+                 require(lastWithdraw[msg.sender] + withdrawalInterval <= block.timestamp, "Wait 24 hours");
+
+    Mutated line:
+                 require(lastWithdraw[msg.sender] + withdrawalInterval > block.timestamp, "Wait 24 hours");
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/StakeNFT.sol
+    Line nr: 43
+    Result: Killed
+    Original line:
+                 require(msg.sender == originalOwner[tokenId], "Not the original owner");
+
+    Mutated line:
+                 require(msg.sender != originalOwner[tokenId], "Not the original owner");
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/StakeNFT.sol
+    Line nr: 53
+    Result: Killed
+    Original line:
+                 require(msg.sender == address(nft), "Invalid NFT address");
+
+    Mutated line:
+                 require(msg.sender != address(nft), "Invalid NFT address");
+
+
+Mutation: VALID
+    File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/StakeNFT.sol
+    Line nr: 35
+    Result: Killed
+    Original line:
+                 require(lastWithdraw[msg.sender] + withdrawalInterval <= block.timestamp, "Wait 24 hours");
+
+    Mutated line:
+                 require(lastWithdraw[msg.sender] - withdrawalInterval <= block.timestamp, "Wait 24 hours");
+
+
