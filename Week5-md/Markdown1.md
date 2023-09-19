@@ -297,3 +297,7 @@ This is the conclusion only taking into account the true positives:
 - **0** High severity were found
 - **4** Medium severity were found
 - **31** Low severity were found
+
+
+## MythX
+I ran the tool in a couple of contracts and found no issues, MythX only checks for a small set of vulnerabilities so I run it agants the Pair contract that has a known reentrancy and got no issues after a quick Scan.

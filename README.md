@@ -2,8 +2,8 @@
 I am currently enrolled in RareSkills bootcamp and this repo is for the projects I make while I'm at it.
 
 TODO:
-- [ ]  Run Slither on the codebases you created in the last two weeks
-- [ ]  Run MythX on any of the codebases of your chosing
+- [X]  Run Slither on the codebases you created in the last two weeks
+- [X]  Run MythX on any of the codebases of your chosing
 - [ ]  **Markdown 1**** Document true and false positives that you discovered with the tools
 - [ ]  Ensure the ERC721 / ERC20 / Staking application has 100% line and branch coverage
 - [ ]  **Markdown 2:** Run [vertigo-rs](https://github.com/RareSkills/vertigo-rs) to do mutation testing on the ERC721 / ERC20 / Staking application. What mutations do you discover?
