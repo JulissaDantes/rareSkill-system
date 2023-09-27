@@ -1,6 +1,6 @@
 ## Vertigo rs
 ### Mutations discovered
-All mutations from all contracts can be seen inside the `my_file` file. But, the mutations belonging to the ERC20 and ERC721 staking system, had 15 Killed test, meaning that after the following mutations the test dint break:
+All mutations from all contracts can be seen inside the `my_file` file. But, out of 22 mutations belonging to the ERC20 and ERC721 staking system, had 15 Killed test, meaning that after the following mutations the test break:
 1. 
 ```
     File: /Users/julissadantes-castillo/Documents/rareSkill-system/src/Week2/Ecosystem1/ERC20.sol
