@@ -3,13 +3,13 @@ I am currently enrolled in RareSkills bootcamp and this repo is for the projects
 
 # Study
 
-- [ ]  Watch Trail of Bits Echidna tutorial part 1 ([link](https://www.youtube.com/watch?v=QofNQxW_K08&list=PLciHOL_J7Iwqdja9UH4ZzE8dP1IxtsBXI&index=1))
-- [ ]  Watch Trail of Bits Echidna tutorial part 2 ([link](https://www.youtube.com/watch?v=9P7sqE6hILM&list=PLciHOL_J7Iwqdja9UH4ZzE8dP1IxtsBXI&index=2))
-- [ ]  Read Trail of Bits Echidna introduction ([link](https://github.com/crytic/building-secure-contracts/tree/master/program-analysis/echidna/introduction))
-- [ ]  Read Trail of Bits Echidna basic ([link](https://github.com/crytic/building-secure-contracts/tree/master/program-analysis/echidna/basic))
-- [ ]  Read Echidna tips ([link](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/echidna/fuzzing_tips.md))
-- [ ]  Read Echidna FAQ ([link](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/echidna/frequently_asked_questions.md))
-- [ ]  Optional reading: Echidna exercises ([link](https://github.com/crytic/building-secure-contracts/tree/master/program-analysis/echidna/exercises))
+- [X]  Watch Trail of Bits Echidna tutorial part 1 ([link](https://www.youtube.com/watch?v=QofNQxW_K08&list=PLciHOL_J7Iwqdja9UH4ZzE8dP1IxtsBXI&index=1))
+- [X]  Watch Trail of Bits Echidna tutorial part 2 ([link](https://www.youtube.com/watch?v=9P7sqE6hILM&list=PLciHOL_J7Iwqdja9UH4ZzE8dP1IxtsBXI&index=2))
+- [X]  Read Trail of Bits Echidna introduction ([link](https://github.com/crytic/building-secure-contracts/tree/master/program-analysis/echidna/introduction))
+- [X]  Read Trail of Bits Echidna basic ([link](https://github.com/crytic/building-secure-contracts/tree/master/program-analysis/echidna/basic))
+- [X]  Read Echidna tips ([link](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/echidna/fuzzing_tips.md))
+- [X]  Read Echidna FAQ ([link](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/echidna/frequently_asked_questions.md))
+- [X]  Optional reading: Echidna exercises ([link](https://github.com/crytic/building-secure-contracts/tree/master/program-analysis/echidna/exercises))
 
 # Practice
 
@@ -26,7 +26,7 @@ I am currently enrolled in RareSkills bootcamp and this repo is for the projects
 - You will have to update some of the syntax to match the older version
 - You can use the `isComplete` as the assert and invariant condition
 - You will likely need to run echidna longer with `echidna-test your-solution.sol --test-limit <larger limit>`
-- [ ]  Solve Problem 22: DEX 1 from Caputre the Ether ([link](https://ethernaut.openzeppelin.com/level/22))
+- [ ]  Solve Problem 22: DEX 1 from Capture the Ether ([link](https://ethernaut.openzeppelin.com/level/22))
 
 **Tips**
 
