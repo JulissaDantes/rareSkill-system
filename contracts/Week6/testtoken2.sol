@@ -1,6 +1,6 @@
 pragma solidity ^0.8.0;
 
-import "./token.sol";
+import "./token2.sol";
 
 /// @dev Run the template with
 ///      ```
