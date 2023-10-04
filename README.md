@@ -17,8 +17,7 @@ I am currently enrolled in RareSkills bootcamp and this repo is for the projects
 - [X]  Echidna exercise 2 ([link](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/echidna/exercises/Exercise-2.md))
 - [X]  Echidna exercise 3 ([link](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/echidna/exercises/Exercise-3.md))
 - [X]  Echidna exercise 4 ([link](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/echidna/exercises/Exercise-4.md))
-- [ ]  Solve Capture the Ether token Whale ([link](https://capturetheether.com/challenges/math/token-whale/))
-- study ex 1 solution and ex 2.
+- [X]  Solve Capture the Ether token Whale ([link](https://capturetheether.com/challenges/math/token-whale/))
 
 **Tips**
 

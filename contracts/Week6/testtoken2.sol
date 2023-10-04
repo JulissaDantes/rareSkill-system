@@ -14,6 +14,6 @@ contract TestToken is Token {
     }
 
     function echidna_cannot_be_unpause() public view returns (bool) {
-        return paused();//Worked fine as is I would assume it would fail if before losing ownership the contract is unpaused
+        return paused(); //Worked fine as is I would assume it would fail if before losing ownership the contract is unpaused
     }
 }
