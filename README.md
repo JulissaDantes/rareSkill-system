@@ -27,6 +27,7 @@ I am currently enrolled in RareSkills bootcamp and this repo is for the projects
 - You can use the `isComplete` as the assert and invariant condition
 - You will likely need to run echidna longer with `echidna-test your-solution.sol --test-limit <larger limit>`
 - [X]  Solve Problem 22: DEX 1 from Capture the Ether ([link](https://ethernaut.openzeppelin.com/level/22))
+- [X] Solve the DEX with edchina
 
 **Tips**
 

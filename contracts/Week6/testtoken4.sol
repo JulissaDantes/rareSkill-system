@@ -9,9 +9,6 @@ import "./token4.sol";
 ///      ```
 contract TestToken is Token {
     function transfer(address to, uint256 value) public override {
-        // TODO: include `assert(condition)` statements that
-        // detect a breaking invariant on a transfer.
-        // Hint: you may use the following to wrap the original function.
         uint256 senderInitialBalance = balances[msg.sender];
         uint256 toInitialBalance = balances[to];
         super.transfer(to, value);
@@ -20,7 +17,7 @@ contract TestToken is Token {
     }
 
     /*
-    This did not exploded: resume():  passed! 🎉
+    This did not exploded evn after increasing test limit: resume():  passed! 🎉
     balances(address):  passed! 🎉
     paused():  passed! 🎉
     pause():  passed! 🎉

@@ -8,7 +8,7 @@ import "./token.sol";
 ///      echidna contracts/week6/testtoken.sol --contract TestToken
 ///      ```
 contract TestToken is Token {
-    address echidna = msg.sender;
+    address echidna = tx.origin;
 
     constructor() public {
         balances[echidna] = 10000;
