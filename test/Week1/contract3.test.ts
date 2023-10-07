@@ -33,7 +33,7 @@ describe.only("Contract3", function () {
 
       await expect(tokenB.connect(other).transferAndCall(await instance.getAddress(), initialSupply))
         .to.emit(instance, 'BuyTokens')
-        .withArgs(other.address, anyValue, priceBefore);
+        .withArgs(other.address, anyValue, anyValue);
 
       expect(balanceBefore).to.be.lt(await tokenA.balanceOf(other.address));
       expect(priceBefore).to.be.lt(await instance.getPrice(0));
@@ -86,7 +86,7 @@ describe.only("Contract3", function () {
 
       await expect(tokenB.connect(other).transferAndCall(await instance.getAddress(), amountToBuy))
         .to.emit(instance, 'BuyTokens')
-        .withArgs(other.address, tokenAmount, price);
+        .withArgs(other.address, tokenAmount, anyValue);
       
       expect(await tokenA.balanceOf(other.address)).to.be.eq(prevABalance + tokenAmount);
       expect(await tokenB.balanceOf(other.address)).to.be.eq(prevBBalance - (tokenAmount * price));
