@@ -14,7 +14,7 @@ import "hardhat/console.sol";
 /// sends a token to the contract with ERC1363 or ERC777, it should trigger the receive function. If you use a separate contract to handle the
 /// reserve and use ERC20, you need to use the approve and send workflow. This should support fractions of tokens.
 ///
-/// NOTE: This contracts locks the ERC1363 tokens used to buy the ERC20, it should have a transfer mechanism to about locking the tokens in,
+/// NOTE: This contracts locks the ERC1363 tokens used to buy the ERC20, it should have a transfer mechanism,
 /// but the contract focus only on the token sale using the linear bonding curve to compute the price. I DO NOT RECOMMEND DEPLOYING TO PRODUCTION.
 contract Contract3 is IERC1363Receiver, ReentrancyGuard {
     // linear bonding curve growth rate
@@ -53,7 +53,7 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
             "Please wait until the cooldown period expires"
         );
         require(tokenA.balanceOf(msg.sender) >= amount, "Invalid sell amount");
-        uint256 price = getPrice();
+        uint256 price = getPrice(0);
         uint256 tokenBAmount = price * amount;
 
         // If not enough players participate in the ecosystem, tokens to be paid might be higher than tokens
@@ -76,24 +76,43 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
     ) public override returns (bytes4) {
         require(msg.sender == address(tokenB), "Only transfers can trigger this function");
         require(_cooldownAccounts[sender] <= uint32(block.timestamp), "Please wait until the cooldown period expires");
-        uint256 price = getPrice();
-        uint256 tokenAmount = amount / price;
+        (uint256 tokenAmount, uint256 remaining) = getTokenAmount(amount);
         require(tokenAmount > 0, "Not enough tokens to buy");
         tokenA.mint(sender, tokenAmount);
 
         // If payment was not exact returns unused amount
-        if (amount != tokenAmount * price) {
-            require(tokenB.transfer(sender, amount - (tokenAmount * price)), "Transfer failed");
+        if (remaining > 0) {
+            require(tokenB.transfer(sender, remaining), "Transfer failed");
         }
 
         _cooldownAccounts[msg.sender] = uint32(block.timestamp + COOLDOWN_TIME);
-        emit BuyTokens(sender, tokenAmount, price);
+        emit BuyTokens(sender, tokenAmount, getPrice(0));
         return IERC1363Receiver.onTransferReceived.selector;
     }
 
     /// @dev Returns current price of token A using linear bonding curve formula to return the price,
     /// price = (slope * tokenSupply) + initialPrice.
-    function getPrice() public view returns (uint256) {
-        return (slope + tokenA.totalSupply()) + initialPrice;
+    /// @param extra extra supply to be considered in calculation
+    function getPrice(uint256 extra) public view returns (uint256 res) {
+        res = (slope + (tokenA.totalSupply() + extra)) + initialPrice;
+    }
+    /// @notice As more tokenA are minted the price of tokenA changes, this funtion considers the amount of tokenB given 
+    /// and the price of each new token it can buy.
+    /// @dev Returns amount of tokenA that the user can pay for given an amount of tokenB.
+    /// @param amount Amount of TokenB deposited
+    function getTokenAmount(uint256 amount) view internal returns(uint256 res, uint256 remaining) {
+        uint256 extra = 0;
+        while(amount > 0) {
+            uint256 price = getPrice(extra++);
+            // Can user buy 1 at this price?
+            if(amount >= price) {
+                res++;
+                amount -= price;
+            } else {
+                // if cannot buy more with the amount remaining it breaks the loop
+                remaining = amount;
+                break;
+            }
+        }
     }
 }

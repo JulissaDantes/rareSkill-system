@@ -10,7 +10,7 @@ async function mineCoolDown() {
   await mine();
 }
 
-describe("Contract3", function () {
+describe.only("Contract3", function () {
     const initialSupply = 100;
     let owner, other;
     let instance: Contract3;
@@ -28,7 +28,7 @@ describe("Contract3", function () {
     });
   
     it("Account can buy token by sending tokens to contract and price increases after buy", async () => {
-      const priceBefore = await instance.getPrice();
+      const priceBefore = await instance.getPrice(0);
       const balanceBefore = await tokenA.balanceOf(other.address);
 
       await expect(tokenB.connect(other).transferAndCall(await instance.getAddress(), initialSupply))
@@ -36,7 +36,7 @@ describe("Contract3", function () {
         .withArgs(other.address, anyValue, priceBefore);
 
       expect(balanceBefore).to.be.lt(await tokenA.balanceOf(other.address));
-      expect(priceBefore).to.be.lt(await instance.getPrice());
+      expect(priceBefore).to.be.lt(await instance.getPrice(0));
     });
 
     it("Account cannot call directly to buy tokens", async () => {
@@ -44,7 +44,7 @@ describe("Contract3", function () {
     });
 
     it("Account can sell token and price decreases after sell", async () => {
-      const priceBefore = await instance.getPrice();
+      const priceBefore = await instance.getPrice(0);
       const balanceBefore = await tokenA.balanceOf(other.address);
 
       await expect(instance.connect(other).sellTokens(1))
@@ -52,7 +52,7 @@ describe("Contract3", function () {
         .withArgs(other.address, anyValue, priceBefore);
 
       expect(balanceBefore).to.be.gt(await tokenA.balanceOf(other.address));
-      expect(priceBefore).to.be.gt(await instance.getPrice());
+      expect(priceBefore).to.be.gt(await instance.getPrice(0));
     });
     
     it("Account need to wait for cooldown period", async () => {
@@ -71,14 +71,14 @@ describe("Contract3", function () {
     it("Transaction reverts if minimum to buy is less than 1", async () => {
       await mineCoolDown();
       tokenB.mint(other.address, initialSupply);
-      const price = await instance.getPrice();
+      const price = await instance.getPrice(0);
       const amountToBuy = price - BigInt(1);
       
       await expect(tokenB.connect(other).transferAndCall(await instance.getAddress(), amountToBuy)).to.be.revertedWith('Not enough tokens to buy');
     });
 
     it("Token B is returned if not used", async () => {
-      const price = await instance.getPrice();
+      const price = await instance.getPrice(0);
       const amountToBuy = price + (price/BigInt(2));// 1.5 price, not enough for 2 tokens
       const tokenAmount = amountToBuy / price;
       const prevABalance = await tokenA.balanceOf(other.address);

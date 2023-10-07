@@ -36,9 +36,9 @@ I am currently enrolled in RareSkills bootcamp and this repo is for the projects
 - Be mindful if you should be using `msg.sender` or `address(this)`
 - You will need to set up a contract that creates the same setup ethernaut does
 - After you setup the contract that sets up the environment use this command `echidna-test . --config config.yaml --contract SetupContract`
-- Hint: the `swap` function takes two arbitrary addresses, but only two are valid. How can you alter the wrapper function to ensure the fuzzer doesn’t try invalid values?
+- Hint: the `swap` function takes two arbitrary addresses, but only two are valid. How can you alter the wrapper function to ensure the fuzzer doesn’t try invalid values? [ ]
 - The contract will need to renounce ownership of the dex it creates, otherwise it would be cheating to hack a contract you have ownership over
-- Hint: Rather than checking if you completely drained the contract, maybe check if the pool has a lot less liquidity than expected? This will make it easier to find the exploit
+- Hint: Rather than checking if you completely drained the contract, maybe check if the pool has a lot less liquidity than expected? This will make it easier to find the exploit [ ]
 - Echidna remembers interesting transactions from the corpus directory.
 - Hint: Echidna uses what addresses as `msg.sender` by default? How many are needed? Can we speed up the fuzzing by changing this number?
 - **Writeup**: do a writeup of what the fuzzer found

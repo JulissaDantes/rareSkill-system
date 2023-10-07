@@ -4,7 +4,7 @@ import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { Contract } from "hardhat/internal/hardhat-network/stack-traces/model";
 
-describe.only("Ecosystem 1", function () {
+describe("Ecosystem 1", function () {
     let owner, other1, other2, royaltyReceiver, lastTokenID, tree, secret = 0, price = ethers.parseEther("100.0");
     let instance: Contract;
     let erc20: Contract;
