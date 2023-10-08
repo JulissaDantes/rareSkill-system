@@ -6,7 +6,6 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import {IERC1363Receiver} from "erc-payable-token/contracts/token/ERC1363/IERC1363Receiver.sol";
 import {BuyToken} from "./ERC1363.sol";
 import {SellToken} from "./ERC20.sol";
-import "hardhat/console.sol";
 
 /// @title Token sale and buyback with bonding curve
 /// @author Julissa Dantes

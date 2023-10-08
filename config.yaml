@@ -1,0 +1,2 @@
+#solcArgs : ["--include-path node_modules/"]
+cryticArgs: ["--solc-remaps", "@openzeppelin=node_modules/@openzeppelin hardhat=node_modules/hardhat erc-payable-token=node_modules/erc-payable-token"]
