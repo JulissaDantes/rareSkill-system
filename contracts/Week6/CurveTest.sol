@@ -27,5 +27,11 @@ contract TestCurve is Contract3 {
         // When sending the price of 1 token amount should be 1 and nothing is leftover
         assert(tokenAmount == 1);
         assert(remaining == 0);
+
+        // when sending more than price but not enough for another there should be a leftover
+        uint256 leftover = amount - 1;
+        (uint256 tokenAmount2, uint256 remaining2) = getTokenAmount(amount + leftover);
+        assert(tokenAmount2 == 1);
+        assert(remaining2 == 0);
     }
 }

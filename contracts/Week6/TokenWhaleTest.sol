@@ -12,7 +12,6 @@ contract TestWhaleToken is TokenWhaleChallenge {
 
     function TestWhaleToken() public TokenWhaleChallenge(echidna) {}
 
-    // Need to use assert
     function echidna_isCompleted() public view returns (bool) {
         /* This ERC20-compatible token is hard to acquire. There’s a fixed supply of 1,000 tokens, all of which are yours to start with.
 
