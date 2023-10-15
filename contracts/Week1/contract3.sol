@@ -95,16 +95,17 @@ contract Contract3 is IERC1363Receiver, ReentrancyGuard {
     function getPrice(uint256 extra) public view returns (uint256 res) {
         res = (slope + (tokenA.totalSupply() + extra)) + initialPrice;
     }
-    /// @notice As more tokenA are minted the price of tokenA changes, this funtion considers the amount of tokenB given 
+
+    /// @notice As more tokenA are minted the price of tokenA changes, this funtion considers the amount of tokenB given
     /// and the price of each new token it can buy.
     /// @dev Returns amount of tokenA that the user can pay for given an amount of tokenB.
     /// @param amount Amount of TokenB deposited
-    function getTokenAmount(uint256 amount) view internal returns(uint256 res, uint256 remaining) {
+    function getTokenAmount(uint256 amount) internal view returns (uint256 res, uint256 remaining) {
         uint256 extra = 0;
-        while(amount > 0) {
+        while (amount > 0) {
             uint256 price = getPrice(extra++);
             // Can user buy 1 at this price?
-            if(amount >= price) {
+            if (amount >= price) {
                 res++;
                 amount -= price;
             } else {

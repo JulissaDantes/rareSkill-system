@@ -42,10 +42,10 @@ I am currently enrolled in RareSkills bootcamp and this repo is for the projects
 - Echidna remembers interesting transactions from the corpus directory.
 - Hint: Echidna uses what addresses as `msg.sender` by default? How many are needed? Can we speed up the fuzzing by changing this number?
 - **Writeup**: do a writeup of what the fuzzer found
-- [ ]  Use Echidna to test the bonding curve from the ERC20 of the first week. What invariants should you use?
+- [X]  Use Echidna to test the bonding curve from the ERC20 of the first week. What invariants should you use?
 
 # When you are done
 
-- [ ]  Format your code and publish to github.
-- [ ]  Make sure your solution solidity files and config.yml files for each problem are ready to review
-- [ ]  Set up a 1-1 with your instructor to review Week 3 and 4
+- [X]  Format your code and publish to github.
+- [X]  Make sure your solution solidity files and config.yml files for each problem are ready to review
+- [X]  Set up a 1-1 with your instructor to review Week 3 and 4

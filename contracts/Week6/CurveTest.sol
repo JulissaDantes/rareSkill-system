@@ -11,9 +11,7 @@ contract TestCurve is Contract3 {
     address echidna = tx.origin;
     BuyToken _tokenB = new BuyToken("Test", "TS");
 
-    constructor() Contract3(1, 1, address(_tokenB)) {
-       
-    }
+    constructor() Contract3(1, 1, address(_tokenB)) {}
 
     // Price should never be zero
     function echidna_test_price() public view {
