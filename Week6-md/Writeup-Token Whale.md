@@ -23,3 +23,10 @@ Call sequence:
 ```
 
 ### Results interpretation
+The real trick to solve this challenge is to underflow an user's balance by performing a transfer that will execute `balanceOf[msg.sender] -= value;`. To better understand echidna results let's remember this function signatures: `approve(address spender, uint256 value)`, `transferFrom(address from, address to, uint256 value)`, and `transfer(address to, uint256 value)`. Let's go through the calls:
+
+1. The approve function doesnt require the approved value to be less than the actual balance, that's why the caller could make that `approve` call with such a large number.(msg.sender in this tx: address(3))
+2. Since address(2) has an allowance by address(3) it can can bypass the requires, but when `transferFrom` calls `_transfer` it doesnt subtract from the `from` parameter sent to `transferFrom` but from the msg.sender's balance effectively underflowing.
+3. address(2) transfers a big amount to address(1).
+4. address(1) is able to transfer a big amount to address(3).
+
