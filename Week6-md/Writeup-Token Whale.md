@@ -1,4 +1,7 @@
-## What did echidna find when testing the Ethernaut challenge?
+## Token Whale Capture the Ether challenge and Echidna
+
+### Challenge
+The Token Whale contracts is an ERC20-compatible hard to acquire token. There’s a fixed supply of 1,000 tokens, all of which are user's to start with. Find a way to accumulate at least 1,000,000 tokens to solve this challenge.
 
 ### What was it testing?
 The specific invariant being checked was the player's balance. In order to break the CTF we needed to violate the condition of a user's balance limit of 1,000,000, therefore this was the function:

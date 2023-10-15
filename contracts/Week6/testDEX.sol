@@ -40,7 +40,6 @@ contract TestDEX is Dex {
         // should check that both tokens balances are 0
         emit LogValues(IERC20(token1).balanceOf(_instance), IERC20(token2).balanceOf(_instance));
         // To win the CTF I must steal one of the 2 tokens, making the contract hold zero tokens
-        //return IERC20(token1).balanceOf(_instance) != 0 || ERC20(token2).balanceOf(_instance) != 0;
         return IERC20(token1).balanceOf(_instance) != 0 || ERC20(token2).balanceOf(_instance) != 0;
     }
     // NOTE: after 9000000 runs it would not find a path where I drain the contract from one of the tokens
