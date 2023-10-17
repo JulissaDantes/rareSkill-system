@@ -1,0 +1,1 @@
+Week 8-9 consist of solving CTF puzzles, the tests inside this folder is not testing the contract, it is testing an exploit.
