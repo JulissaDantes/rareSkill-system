@@ -11,9 +11,9 @@ The note in front of each CTF says which category it is in, and matches the head
 
 - [X]  Capture the Ether Guess the secret number
 - [X]  Capture the Ether Guess the new number
-- [ ]  Capture the Ether predict the future
+- [X]  Capture the Ether predict the future
 
-Suggested reading: https://www.rareskills.io/post/where-to-find-solidity-reentrancy-attacks
+[ ] Suggested reading: https://www.rareskills.io/post/where-to-find-solidity-reentrancy-attacks
 
 - [ ]  RareSkills Riddles: ERC1155
 - [ ]  Capture the Ether Token Bank

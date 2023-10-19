@@ -8,7 +8,7 @@ const { ethers } = require("hardhat");
 
 const NAME = "GuessTheSecretNumberChallenge";
 
-describe.only(NAME, function () {
+describe(NAME, function () {
     async function setup() {
         const playBalance = ethers.parseEther("1.0");
         const VictimFactory = await ethers.getContractFactory(NAME);
