@@ -25,3 +25,29 @@ contract GuessTheSecretNumberChallenge {
         }
     }
 }
+
+/*
+Solution: Compute number in the same transaction.
+*/
+contract GuessTheSecretNumberChallengeAttacker {
+    address victim;
+    bytes32 answerHash = 0xdb81b4d58595fbbbb592d3661a34cdca14d7ab379441400cbfa1b78bc447c365;
+
+    function setVictim(address _victim) external {
+        victim = _victim;
+    }
+
+    function attack() payable external {
+        uint8 n = 0;
+        while (n < 255) {//max uint8 value
+            if (keccak256(n) == answerHash) {
+                break;
+            }
+            n++;
+        }
+        GuessTheSecretNumberChallenge(victim).guess.value(msg.value)(n);
+    }
+
+    function() payable public {
+    }
+}
