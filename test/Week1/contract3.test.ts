@@ -10,7 +10,7 @@ async function mineCoolDown() {
   await mine();
 }
 
-describe.only("Contract3", function () {
+describe("Contract3", function () {
     const initialSupply = 100;
     let owner, other;
     let instance: Contract3;
