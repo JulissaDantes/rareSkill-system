@@ -2,7 +2,6 @@ const {
     time,
     loadFixture,
 } = require("@nomicfoundation/hardhat-network-helpers");
-const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
@@ -26,7 +25,7 @@ describe.only(NAME, function () {
         it("conduct your attack here", async function () {
             const playBalance = ethers.parseEther("1.0");
             const AttackerFactory = await ethers.getContractFactory("GuessTheNewNumberChallengeAttacker");
-            const attackerContract = await AttackerFactory.connect(attackerWallet).deploy();
+            const attackerContract = await AttackerFactory.deploy();
             await attackerContract.setVictim(await victimContract.getAddress());
             await attackerContract.attack({value: playBalance});
         });

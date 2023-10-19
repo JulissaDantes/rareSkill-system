@@ -10,7 +10,7 @@ The note in front of each CTF says which category it is in, and matches the head
 ### First week
 
 - [ ]  Capture the Ether Guess the secret number
-- [ ]  Capture the Ether Guess the new number
+- [X]  Capture the Ether Guess the new number
 - [ ]  Capture the Ether predict the future
 
 Suggested reading: https://www.rareskills.io/post/where-to-find-solidity-reentrancy-attacks

