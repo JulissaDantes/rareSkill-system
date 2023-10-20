@@ -37,9 +37,10 @@ contract GuessTheSecretNumberChallengeAttacker {
         victim = _victim;
     }
 
-    function attack() payable external {
+    function attack() external payable {
         uint8 n = 0;
-        while (n < 255) {//max uint8 value
+        while (n < 255) {
+            //max uint8 value
             if (keccak256(n) == answerHash) {
                 break;
             }
@@ -48,6 +49,5 @@ contract GuessTheSecretNumberChallengeAttacker {
         GuessTheSecretNumberChallenge(victim).guess.value(msg.value)(n);
     }
 
-    function() payable public {
-    }
+    function() public payable {}
 }

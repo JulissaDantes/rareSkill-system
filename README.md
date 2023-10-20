@@ -15,7 +15,7 @@ The note in front of each CTF says which category it is in, and matches the head
 
 [ ] Suggested reading: https://www.rareskills.io/post/where-to-find-solidity-reentrancy-attacks
 
-- [ ]  RareSkills Riddles: ERC1155
+- [X]  RareSkills Riddles: ERC1155
 - [ ]  Capture the Ether Token Bank
 - [ ]  Capture the Ether Predict the block hash
 - [ ]  Capture the Ether Token Whale Challenge

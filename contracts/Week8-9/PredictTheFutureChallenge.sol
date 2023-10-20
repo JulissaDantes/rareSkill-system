@@ -1,6 +1,5 @@
 pragma solidity ^0.4.21;
 
-
 /*
 This time, you have to lock in your guess before the random number is generated. To give you a sporting chance, there are only ten possible answers.
 
@@ -30,8 +29,8 @@ contract PredictTheFutureChallenge {
     }
 
     function settle() public {
-        require(msg.sender == guesser); 
-        require(block.number > settlementBlockNumber); 
+        require(msg.sender == guesser);
+        require(block.number > settlementBlockNumber);
 
         uint8 answer = uint8(keccak256(block.blockhash(block.number - 1), now)) % 10;
 
@@ -59,11 +58,10 @@ contract PredictTheFutureChallengeAttacker {
     function attack() public {
         uint8 answer = uint8(keccak256(block.blockhash(block.number - 1), now)) % 10;
 
-        if(answer == 0) {
+        if (answer == 0) {
             PredictTheFutureChallenge(victim).settle();
         }
     }
 
-    function() payable public {
-    }
+    function() public payable {}
 }

